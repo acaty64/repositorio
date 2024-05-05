@@ -1,0 +1,13 @@
+read_git
+
+git status
+git add .
+git commit -m "xxxxxx"
+
+
+git remote add origin https://github.com/acaty64/repositorio.git
+git push -u origin master
+
+
+git clone https://github.com/acaty64/repositorio.git
+git pull origin master
