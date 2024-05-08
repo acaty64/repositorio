@@ -5,20 +5,27 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOfficeRequest;
 use App\Http\Requests\UpdateOfficeRequest;
 use App\Models\Office;
+use Illuminate\Routing\Controllers\Middleware;
 
 class OfficeController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('can:admin.offices.index')->only('index');
-        $this->middleware('can:admin.offices.create')->only('create', 'store');
-        $this->middleware('can:admin.offices.show')->only('show');
-        $this->middleware('can:admin.offices.edit')->only('edit', 'update');
-        $this->middleware('can:admin.offices.destroy')->only('destroy');
+    public static function middleware(): array
+    {
+        return [
+            'auth',
+            new Middleware('admin.office.index', only: ['index']),
+            new Middleware('admin.office.create', only: ['create', 'store']),
+            new Middleware('admin.office.show', only: ['show']),
+            new Middleware('admin.office.edit', only: ['edit', 'update']),
+            new Middleware('admin.office.destroy', only: ['destroy']),
+        ];
     }
+
+
     public function index()
     {
-        //
+        return view('admin.office.index');
     }
 
     /**

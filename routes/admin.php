@@ -15,6 +15,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('', [HomeController::class, 'index'])->name('admin.index');
-    Route::resource('document', DocumentController::class);
-    Route::resource('office', OfficeController::class);
+    Route::resource('document', DocumentController::class)->names('admin.document');
+    Route::resource('office', OfficeController::class)->names('admin.office');
 });

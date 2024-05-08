@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 use App\Models\Document;
+use Illuminate\Routing\Controllers\Middleware;
 
 class DocumentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public static function middleware(): array
+    {
+        return [
+            'auth',
+            new Middleware('admin.document.index', only: ['index']),
+            new Middleware('admin.document.create', only: ['create', 'store']),
+            new Middleware('admin.document.show', only: ['show']),
+            new Middleware('admin.document.edit', only: ['edit', 'update']),
+            new Middleware('admin.document.destroy', only: ['destroy']),
+        ];
+    }
+
     public function index()
     {
         return 'Lista de documentos';
