@@ -16,7 +16,7 @@ class PermissionTest extends TestCase
     {
         //$user = User::FindOrFail(1);
         $user = User::factory()->create();
-        $user->assignRole('Master');
+        $user->assignRole('master');
 
         $response = $this
             ->actingAs($user)

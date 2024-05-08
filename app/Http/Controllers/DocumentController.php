@@ -13,7 +13,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        return 'Lista de documentos';
     }
 
     /**
@@ -21,7 +21,7 @@ class DocumentController extends Controller
      */
     public function create()
     {
-        //
+        return 'Creación de documento';
     }
 
     /**

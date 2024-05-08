@@ -8,9 +8,14 @@ use App\Models\Office;
 
 class OfficeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct(){
+        $this->middleware('can:admin.offices.index')->only('index');
+        $this->middleware('can:admin.offices.create')->only('create', 'store');
+        $this->middleware('can:admin.offices.show')->only('show');
+        $this->middleware('can:admin.offices.edit')->only('edit', 'update');
+        $this->middleware('can:admin.offices.destroy')->only('destroy');
+    }
     public function index()
     {
         //
