@@ -6,19 +6,21 @@ use App\Http\Requests\StoreOfficeRequest;
 use App\Http\Requests\UpdateOfficeRequest;
 use App\Models\Office;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 
-class OfficeController extends Controller
+class OfficeController extends Controller implements \Illuminate\Routing\Controllers\HasMiddleware
 {
-
+    // fuente: https://stackoverflow.com/questions/78265691/laravel-11-middleware-authentication-with-controllers-method
+    // fuente: https://laravel.com/docs/11.x/controllers#controller-middleware
     public static function middleware(): array
     {
         return [
             'auth',
-            new Middleware('admin.office.index', only: ['index']),
-            new Middleware('admin.office.create', only: ['create', 'store']),
-            new Middleware('admin.office.show', only: ['show']),
-            new Middleware('admin.office.edit', only: ['edit', 'update']),
-            new Middleware('admin.office.destroy', only: ['destroy']),
+            new Middleware('can:admin.office.index', only: ['index']),
+            new Middleware('can:admin.office.create', only: ['create', 'store']),
+            new Middleware('can:admin.office.show', only: ['show']),
+            new Middleware('can:admin.office.edit', only: ['edit', 'update']),
+            new Middleware('can:admin.office.destroy', only: ['destroy']),
         ];
     }
 
@@ -28,51 +30,33 @@ class OfficeController extends Controller
         return view('admin.office.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return 'Crear oficina';
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreOfficeRequest $request)
     {
-        //
+        return 'Grabar oficina';
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Office $office)
     {
-        //
+        return 'Ver oficina';
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Office $office)
     {
-        //
+        return 'Editar oficina';
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateOfficeRequest $request, Office $office)
     {
-        //
+        return 'Actualizar oficina';
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Office $office)
     {
-        //
+        return 'Eliminar oficina';
     }
 }
