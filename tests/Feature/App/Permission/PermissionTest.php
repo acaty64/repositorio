@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Permission;
+namespace Tests\Feature\App\Permission;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

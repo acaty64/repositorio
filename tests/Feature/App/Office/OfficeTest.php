@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Office;
+namespace Tests\Feature\App\Office;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
