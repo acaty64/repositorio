@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-class HomeController extends Controller
+use Illuminate\Routing\Controllers\Middleware;
+// implements \Illuminate\Routing\Controllers\HasMiddleware 
+class HomeController extends Controller 
 {
-    public function __construct(){
-        $this->middleware('can:dashboard')->only('index');
+/*
+    public static function middleware(): array
+    {
+        return [
+            'auth',
+            new Middleware('can: dashboard', only: ['index']),
+        ];
     }
+*/
 
     public function index()
     {
-        return view('app.dashboard');
+        return view('admin.index');
     }
 }

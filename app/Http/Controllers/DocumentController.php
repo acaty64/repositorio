@@ -7,17 +7,17 @@ use App\Http\Requests\UpdateDocumentRequest;
 use App\Models\Document;
 use Illuminate\Routing\Controllers\Middleware;
 
-class DocumentController extends Controller
+class DocumentController extends Controller implements \Illuminate\Routing\Controllers\HasMiddleware
 {
     public static function middleware(): array
     {
         return [
             'auth',
-            new Middleware('admin.document.index', only: ['index']),
-            new Middleware('admin.document.create', only: ['create', 'store']),
-            new Middleware('admin.document.show', only: ['show']),
-            new Middleware('admin.document.edit', only: ['edit', 'update']),
-            new Middleware('admin.document.destroy', only: ['destroy']),
+            new Middleware('can:admin.document.index', only: ['index']),
+            new Middleware('can:admin.document.create', only: ['create', 'store']),
+            new Middleware('can:admin.document.show', only: ['show']),
+            new Middleware('can:admin.document.edit', only: ['edit', 'update']),
+            new Middleware('can:admin.document.destroy', only: ['destroy']),
         ];
     }
 

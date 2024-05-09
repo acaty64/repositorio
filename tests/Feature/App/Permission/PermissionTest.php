@@ -11,8 +11,8 @@ use Tests\TestCase;
 class PermissionTest extends TestCase
 {
     use DatabaseTransactions;
-    
-    public function test_authorizated_users_can_view_dashboard_view(): void
+ 
+    public function test_all_users_can_view_dashboard_view(): void
     {
         $user1 = User::factory()->create();
         $user1->assignRole('master');
@@ -27,6 +27,8 @@ class PermissionTest extends TestCase
             ->actingAs($user1)
             ->get(route('dashboard'));
         $response->assertStatus(200);
+        $response->assertViewIs('admin.index');
+        $response->assertSee('Panel de Control');
 
         $response = $this
             ->actingAs($user2)
