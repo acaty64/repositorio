@@ -11,8 +11,15 @@ use Tests\TestCase;
 class PermissionTest extends TestCase
 {
     use DatabaseTransactions;
- 
-    public function test_all_users_can_view_dashboard_view(): void
+
+    public function test_non_authenticated_users_can_not_view_dashboard_view(): void
+    {    
+        $response = $this->get(route('dashboard'));
+        $response->assertStatus(302);
+        $response->assertRedirectToRoute('login');
+    }
+    
+    public function test_authenticated_users_can_view_dashboard_view(): void
     {
         $user1 = User::factory()->create();
         $user1->assignRole('master');
