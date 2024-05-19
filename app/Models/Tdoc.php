@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Office extends Model
+class tdoc extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'abbrev', 'level'];
-    
+    protected $fillable = ['name'];
+
 }
