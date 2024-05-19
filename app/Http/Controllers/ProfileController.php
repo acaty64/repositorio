@@ -9,49 +9,68 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ProfileController extends Controller
+class ProfileController extends Controller implements \Illuminate\Routing\Controllers\HasMiddleware
 {
-    public function index(): View
+    public static function middleware(): array
     {
-        $users = User::paginate();
-        return view('profile.index', compact($users));
+        return [
+            'auth',
+            new Middleware('can:profile.index', only: ['index']),
+            new Middleware('can:profile.create', only: ['create', 'store']),
+            new Middleware('can:profile.edit', only: ['edit', 'update']),
+            new Middleware('can:profile.destroy', only: ['destroy']),
+        ];
     }
 
-    public function edit(Request $request): View
+    public function index(): View
     {
+        $users = User::all();
+        return view('profile.index', compact('users'));
+    }
+
+    public function edit($id): View
+    {
+        $user = User::findOrFail($id);
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
         ]);
     }
 
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        /* ToDo Validation */
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $user = User::findOrFail($request->id);
 
-        $request->user()->save();
+        $user->name = $request->name;
+        $user->email = $request->email;
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $user->save();
+
+        return Redirect::route('profile.index');
+        //return Redirect::route('profile.edit', $user->id)->with('status', 'profile-updated');
     }
 
     public function destroy(Request $request): RedirectResponse
     {
+        /*
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
+        */
+        
+        //$user = $request->user();
+        $user = User::findOrFail($request->id);
 
-        $user = $request->user();
-
-        Auth::logout();
+        //Auth::logout();
 
         $user->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        //$request->session()->invalidate();
+        //$request->session()->regenerateToken();
 
         return Redirect::to('/');
     }

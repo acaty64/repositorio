@@ -310,17 +310,17 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        ['header' => 'OPCIONES'],
-        [
-            'text' => 'Usuarios',
-            'route' => 'profile.edit',
-            'icon' => 'fas fa-fw fa-user',
-            'can' => 'admin.profile.edit'
-        ],
+        ['header' => 'CONFIGURACIÓN'],
         [
             'text' => 'Accesos',
             'icon' => 'fas fa-fw fa-lock',
             'submenu' => [
+                [
+                    'text' => 'Usuarios',
+                    'route' => 'profile.index',
+                    'icon' => 'fas fa-fw fa-user',
+                    'can' => 'profile.index'
+                ],
                 [
                     'text' => 'Roles',
                     'url' => '#',
