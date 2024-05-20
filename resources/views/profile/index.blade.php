@@ -17,7 +17,9 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>
+                    @can('profile.edit')
                     <a class="btn btn-sm btn-primary" href="/admin/profile/{{$user->id}}" method='GET'>Editar</a>
+                    @endcan
                 </td>
             </tr>
         @endforeach

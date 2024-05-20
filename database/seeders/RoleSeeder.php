@@ -35,7 +35,7 @@ class RoleSeeder extends Seeder
                             'description' => 'Crear oficina'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'admin.office.show',
                             'description' => 'Ver detalle de oficina'])->syncRoles([$role1, $role2, $role3, $role4]);
-        Permission::create(['name' => 'admin.office.update',
+        Permission::create(['name' => 'admin.office.edit',
                             'description' => 'Modificar oficina'])->syncRoles([$role1, $role2]);;
         Permission::create(['name' => 'admin.office.destroy',
                             'description' => 'Eliminar oficina'])->syncRoles([$role1, $role2]);;
@@ -46,16 +46,14 @@ class RoleSeeder extends Seeder
                             'description' => 'Crear documento'])->syncRoles([$role1, $role2, $role3, $role4]);
         Permission::create(['name' => 'admin.document.show',
                             'description' => 'Ver detalle de documento'])->syncRoles([$role1, $role2, $role3, $role4]);
-        Permission::create(['name' => 'admin.document.update',
+        Permission::create(['name' => 'admin.document.edit',
                             'description' => 'Modificar documento'])->syncRoles([$role1, $role2, $role3]);;
         Permission::create(['name' => 'admin.document.destroy',
                             'description' => 'Eliminar documento'])->syncRoles([$role1, $role2]);;
 
         Permission::create(['name' => 'profile.index',
-                            'description' => 'Editar usuario'])->syncRoles([$role1, $role2]);
+                            'description' => 'Lista de usuarios'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'profile.edit',
-                            'description' => 'Editar usuario'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'profile.update',
                             'description' => 'Modificar usuario'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'profile.destroy',
                             'description' => 'Eliminar usuario'])->syncRoles([$role1, $role2]);
