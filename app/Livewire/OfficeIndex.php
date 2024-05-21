@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 class OfficeIndex extends Component
 {
     use WithPagination;
-    //protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'bootstrap';
 
     public $status;
     public $office_id;

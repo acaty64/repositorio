@@ -1,6 +1,17 @@
 <div>
     @if( $status == 'index')
-        <h1>Lista de Tipo de Documentos</h1>
+        <div class="row">
+            <div class="col">
+                <span class="float-left">
+                    <h1>Lista de Tipo de Documentos</h1>
+                </span>
+                <span class="float-right">
+                    @can('admin.tdoc.create')
+                    <button class="btn-success btn-lg float-right" wire:click="setStatus('create')">Agregar</button>
+                    @endcan
+                </span>
+            </div>
+        </div>
         <div class="container">
             <table class="table table-striped table-hover">
                 <thead>
@@ -25,8 +36,8 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="px-6 py-3">{{ $tdocs->links() }}</div>
         </div>
-        {{ $tdocs->links() }}
     @endif
     @if( $status == 'create' || $status == 'edit')
         <div class="container">
@@ -84,4 +95,3 @@
         </div>
     @endif
 </div>
-

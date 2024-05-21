@@ -17,10 +17,6 @@ class TdocController extends Controller implements \Illuminate\Routing\Controlle
         return [
             'auth',
             new Middleware('can:admin.tdoc.index', only: ['index']),
-            new Middleware('can:admin.tdoc.create', only: ['create', 'store']),
-            new Middleware('can:admin.tdoc.show', only: ['show']),
-            new Middleware('can:admin.tdoc.edit', only: ['edit', 'update']),
-            new Middleware('can:admin.tdoc.destroy', only: ['destroy']),
         ];
     }
 
@@ -28,35 +24,5 @@ class TdocController extends Controller implements \Illuminate\Routing\Controlle
     public function index()
     {
         return view('admin.tdoc.index');
-    }
-
-    public function create()
-    {
-        return 'Crear tipo de documento';
-    }
-
-    public function store(StoreTdocRequest $request)
-    {
-        return 'Grabar tipo de documento';
-    }
-
-    public function show(Tdoc $tdoc)
-    {
-        return 'Ver tipo de documento';
-    }
-
-    public function edit(Tdoc $tdoc)
-    {
-        return 'Editar tipo de documento';
-    }
-
-    public function update(UpdateTdocRequest $request, Tdoc $tdoc)
-    {
-        return 'Actualizar tipo de documento';
-    }
-
-    public function destroy(Tdoc $tdoc)
-    {
-        return 'Eliminar tipo de documento';
     }
 }
