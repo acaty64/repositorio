@@ -36,9 +36,20 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.office.show',
                             'description' => 'Ver detalle de oficina'])->syncRoles([$role1, $role2, $role3, $role4]);
         Permission::create(['name' => 'admin.office.edit',
-                            'description' => 'Modificar oficina'])->syncRoles([$role1, $role2]);;
+                            'description' => 'Modificar oficina'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'admin.office.destroy',
-                            'description' => 'Eliminar oficina'])->syncRoles([$role1, $role2]);;
+                            'description' => 'Eliminar oficina'])->syncRoles([$role1, $role2]);
+
+        Permission::create(['name' => 'admin.tdoc.index',
+                            'description' => 'Ver lista de tipos de documento'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.tdoc.create',
+                            'description' => 'Crear tipo de documento'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.tdoc.show',
+                            'description' => 'Ver detalle de tipo de documento'])->syncRoles([$role1, $role2, $role3, $role4]);
+        Permission::create(['name' => 'admin.tdoc.edit',
+                            'description' => 'Modificar tipo de documento'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.tdoc.destroy',
+                            'description' => 'Eliminar tipo de documento'])->syncRoles([$role1, $role2]);
 
         Permission::create(['name' => 'admin.document.index',
                             'description' => 'Ver lista de documentos'])->syncRoles([$role1, $role2, $role3, $role4]);

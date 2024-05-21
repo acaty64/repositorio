@@ -48,13 +48,11 @@ class OfficeIndex extends Component
     		$this->office_id = $id;
     		$this->edit();
     	}
-        /*
         if($value == 'destroy')
         {
             $this->office_id = $id;
             $this->destroy();
         }
-        */
     }
 
     public function create()
@@ -67,6 +65,14 @@ class OfficeIndex extends Component
     public function edit()
     {
     	$office = Office::find($this->office_id);
+		$this->name = $office->name;
+		$this->abbrev = $office->abbrev;
+		$this->level = $office->level;
+    }
+    
+    public function destroy()
+    {
+     	$office = Office::find($this->office_id);
 		$this->name = $office->name;
 		$this->abbrev = $office->abbrev;
 		$this->level = $office->level;

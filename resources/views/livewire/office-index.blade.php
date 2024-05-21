@@ -57,8 +57,8 @@
                     <div class="col-sm-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Nombre</span>
-                            <input type="given_name" wire:model="given_name" class="form-control" >
-                            @error('given_name') <span class="error">{{ $message }}</span> @enderror
+                            <input type="name" wire:model="name" class="form-control" >
+                            @error('name') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>

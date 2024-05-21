@@ -318,8 +318,8 @@ return [
                 [
                     'text' => 'Usuarios',
                     'route' => 'profile.index',
+                    'can' => 'profile.index',
                     'icon' => 'fas fa-fw fa-user',
-                    'can' => 'profile.index'
                 ],
                 [
                     'text' => 'Roles',
@@ -334,12 +334,21 @@ return [
         [
             'text' => 'Oficinas',
             'route' => 'admin.office.index',
+            'can' => 'admin.office.index',
             'icon' => 'fas fa-fw fa-home',
             
         ],
         [
+            'text' => 'Tipo de documentos',
+            'route' => 'admin.tdoc.index',
+            'can' => 'admin.tdoc.index',
+            'icon' => 'fas fa-fw fa-home',
+            
+        ],        
+        [
             'text' => 'Documentos',
             'route' => 'admin.document.index',
+            'can' => 'admin.document.index',
             'icon' => 'far fa-fw fa-file',
         ],
     ],
