@@ -322,11 +322,13 @@ return [
                     'icon' => 'fas fa-fw fa-user',
                 ],
                 [
-                    'text' => 'Roles',
-                    'url' => '#',
+                    'text' => 'Permisos',
+                    'route' => 'admin.permission.index',
+                    'can' => 'admin.permission.index',
+                    'icon' => 'fas fa-fw fa-home',
                 ],
                 [
-                    'text' => 'Permisos',
+                    'text' => 'Roles',
                     'url' => '#',
                 ],
             ],
