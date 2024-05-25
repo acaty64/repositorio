@@ -111,7 +111,7 @@ class LivewirePermissionTest extends TestCase
 
     public function test_master_can_destroy_a_permission_registry()
     {
-        $this->todo('Agregar test async roles');
+        //$this->todo('Agregar test async roles');
         
         $master = User::find(1);
         $this->actingAs($master);
@@ -124,8 +124,8 @@ class LivewirePermissionTest extends TestCase
             ->call('save');
             // ->assertSeeHtml('Registro grabado.');
             
-            $this->assertDatabaseMissing('permissions', $permission->toArray());
-            
-        }
-        
+        $this->assertDatabaseMissing('permissions', $permission->toArray());
+        $this->assertFalse($master->can($permission['name']));
     }
+    
+}
