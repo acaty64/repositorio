@@ -16,8 +16,8 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Permiso</th>
+                    <th>Ruta de Permiso</th>
+                    <th>Guard Name</th>
                     <th>Descripción</th>
                     <th></th>
                 </thead>
@@ -67,8 +67,8 @@
                 <div class="input-group mb-3">
                     <div class="col-sm-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Nombre</span>
-                            <input type="name" wire:model="name" class="form-control" >
+                            <span class="input-group-text" id="basic-addon1">Ruta de Permiso</span>
+                            <input type="text" wire:model="name" class="form-control" >
                             @error('name') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -76,8 +76,8 @@
                 <div class="input-group mb-3">
                     <div class="col-sm-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Permiso</span>
-                            <input type="email" wire:model="guard_name" class="form-control" >
+                            <span class="input-group-text" id="basic-addon1">Guard Name</span>
+                            <input type="text" wire:model="guard_name" class="form-control" >
                             @error('guard_name') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                     <div class="input-group mb-3">
                         <div class="col-sm-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Nombre</span>
+                                <span class="input-group-text" id="basic-addon1">Ruta de Permiso</span>
                                 <input readonly type="name" wire:model="name" class="form-control" >
                                 @error('name') <span class="error">{{ $message }}</span> @enderror
                             </div>
@@ -114,8 +114,8 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Permiso</span>
-                            <input readonly type="email" wire:model="guard_name" class="form-control" >
+                            <span class="input-group-text" id="basic-addon1">Guard Name</span>
+                            <input readonly type="text" wire:model="guard_name" class="form-control" >
                             @error('guard_name') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>

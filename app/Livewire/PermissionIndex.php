@@ -2,7 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,6 +17,7 @@ class PermissionIndex extends Component
     public $name;
     public $guard_name;
     public $description;
+    public $roles;
 
     public function render()
     {
@@ -83,18 +85,29 @@ class PermissionIndex extends Component
     	if($this->status == 'edit')
     	{
         	$this->validate();
+            $aroles = [];
+            foreach ($this->roles as $item) {
+                $role = Role::findOrFail($item);
+                $aroles[] = $role;
+            }
 	    	$permission = Permission::find($this->permission_id);
 			$permission->name = $this->name ;
 			$permission->guard_name = $this->guard_name ;
 			$permission->description = $this->description ;
 			$permission->save();
+            $permission->syncRoles($aroles);
     	}elseif( $this->status == 'create'){
             $this->validate();
-	    	Permission::create([
+            $aroles = [];
+            foreach ($this->roles as $item) {
+                $role = Role::findOrFail($item);
+                $aroles[] = $role;
+            }
+	    	$permission = Permission::create([
 				'name' => $this->name ,
 				'guard_name' => $this->guard_name ,
 				'description' => $this->description ,
-	    	]);
+	    	])->syncRoles($aroles);
     	}elseif( $this->status == 'destroy'){
             $permission = Permission::find($this->permission_id);
             $permission->delete();
