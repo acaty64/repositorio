@@ -15,9 +15,10 @@ class PermissionIndex extends Component
     public $status;
     public $permission_id;
     public $name;
-    public $guard_name;
+    public $guard_name = 'web';
     public $description;
-    public $roles;
+    public $roles = [];
+    public $check_roles = [];
 
     public function render()
     {
@@ -28,13 +29,13 @@ class PermissionIndex extends Component
 
     protected $rules = [
         'name' => 'required',
-        'guard_name' => 'required',
         'description' => 'required',
     ];
 
     public function mount()
     {
     	$this->status = 'index';
+        $this->check_roles = [1];
     }
 
     public function setStatus($value, $id = null)
@@ -59,16 +60,20 @@ class PermissionIndex extends Component
 
     public function create()
     {
-		$this->name = '';
-		$this->guard_name = '';
+		$this->name = "";
 		$this->description = '';
+        $data_roles = Role::all();
+        $roles = [];
+        foreach ($data_roles as $item) {
+            $roles[] = ['id' =>$item->id, 'name' => $item->name]; 
+        }
+        $this->roles = $roles;
     }
 
     public function edit()
     {
     	$permission = Permission::find($this->permission_id);
 		$this->name = $permission->name;
-		$this->guard_name = $permission->guard_name;
 		$this->description = $permission->description;
     }
     
@@ -76,7 +81,6 @@ class PermissionIndex extends Component
     {
      	$permission = Permission::find($this->permission_id);
 		$this->name = $permission->name;
-		$this->guard_name = $permission->guard_name;
 		$this->description = $permission->description;
     }
 
@@ -86,26 +90,24 @@ class PermissionIndex extends Component
     	{
         	$this->validate();
             $aroles = [];
-            foreach ($this->roles as $item) {
+            foreach ($this->check_roles as $item) {
                 $role = Role::findOrFail($item);
                 $aroles[] = $role;
             }
 	    	$permission = Permission::find($this->permission_id);
 			$permission->name = $this->name ;
-			$permission->guard_name = $this->guard_name ;
 			$permission->description = $this->description ;
 			$permission->save();
             $permission->syncRoles($aroles);
     	}elseif( $this->status == 'create'){
             $this->validate();
             $aroles = [];
-            foreach ($this->roles as $item) {
+            foreach ($this->check_roles as $item) {
                 $role = Role::findOrFail($item);
                 $aroles[] = $role;
             }
 	    	$permission = Permission::create([
 				'name' => $this->name ,
-				'guard_name' => $this->guard_name ,
 				'description' => $this->description ,
 	    	])->syncRoles($aroles);
     	}elseif( $this->status == 'destroy'){

@@ -20,7 +20,6 @@ class LivewirePermissionTest extends TestCase
         $this->actingAs($master);
         Livewire::test(PermissionIndex::class)
             ->assertSeeHtml('Ruta de Permiso')
-            ->assertSeeHtml('Guard Name')
             ->assertSeeHtml('Descripción');
     }
 
@@ -31,10 +30,10 @@ class LivewirePermissionTest extends TestCase
 
         Livewire::test(PermissionIndex::class)
             ->set('status', 'create')
-            ->assertSeeHtml('Nuevo Permiso');
+            ->assertSeeHtml('Nuevo Permiso')
+            ->assertSeeHtml('Roles');
 
         $data = [
-            'guard_name' => 'web',
             'name' => 'Nuevo Permiso',
             'description' => 'Nueva Descripción',
         ];
@@ -43,10 +42,9 @@ class LivewirePermissionTest extends TestCase
         $this->actingAs($master);
         Livewire::test(PermissionIndex::class)
             ->call('setStatus', 'create')
-            ->set('guard_name', $data['guard_name'])
             ->set('name', $data['name'])
             ->set('description', $data['description'])
-            ->set('roles', $roles)
+            ->set('check_roles', $roles)
             ->call('save');
             // ->assertSeeHtml('Registro grabado.');
             
@@ -63,7 +61,6 @@ class LivewirePermissionTest extends TestCase
         $this->actingAs($master);
 
         $data = [
-            'guard_name' => 'web',
             'name' => 'Permiso Test',
             'description' => 'Description test',
         ];
@@ -78,7 +75,6 @@ class LivewirePermissionTest extends TestCase
         $this->assertDatabaseHas('permissions', $data);
         
         $newData = [
-            'guard_name' => 'web',
             'name' => 'Nuevo Permiso',
             'description' => 'Nueva Descripción',
         ];
@@ -92,11 +88,10 @@ class LivewirePermissionTest extends TestCase
         Livewire::actingAs($master)
             ->test(PermissionIndex::class)
             ->call('setStatus', 'edit', $permission->id)
-            ->assertSet('guard_name', $data['guard_name'])
-            ->set('guard_name', $newData['guard_name'])
+            ->assertSet('name', $data['name'])
             ->set('name', $newData['name'])
             ->set('description', $newData['description'])
-            ->set('roles', $newRoles)
+            ->set('check_roles', $newRoles)
             ->call('save');
 
         $this->assertDatabaseHas('permissions', $newData);

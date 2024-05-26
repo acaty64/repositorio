@@ -6,7 +6,7 @@
                     <h1>Lista de Permisos</h1>
                 </span>
                 <span class="float-right">
-                    @can('admin.tdoc.create')
+                    @can('admin.permission.create')
                     <button class="btn-success btn-lg float-right" wire:click="setStatus('create')">Agregar</button>
                     @endcan
                 </span>
@@ -17,7 +17,6 @@
                 <thead>
                     <th>Id</th>
                     <th>Ruta de Permiso</th>
-                    <th>Guard Name</th>
                     <th>Descripción</th>
                     <th></th>
                 </thead>
@@ -26,7 +25,6 @@
                     <tr>
                         <td>{{$permission->id}}</td>
                         <td>{{$permission->name}}</td>
-                        <td>{{$permission->guard_name}}</td>
                         <td>{{$permission->description}}</td>
                         <td>
                             @can('admin.permission.edit')
@@ -65,20 +63,11 @@
             </div>
             <div class="card-body">
                 <div class="input-group mb-3">
-                    <div class="col-sm-3">
+                    <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Ruta de Permiso</span>
-                            <input type="text" wire:model="name" class="form-control" >
+                            <input type="text" wire:model="name" class="form-control">
                             @error('name') <span class="error">{{ $message }}</span> @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="col-sm-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Guard Name</span>
-                            <input type="text" wire:model="guard_name" class="form-control" >
-                            @error('guard_name') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>
@@ -86,10 +75,24 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Descripción</span>
-                            <input type="text" class="form-control" wire:model="description">
+                            <input type="text" wire:model="description" class="form-control">
                             @error('description') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="input-group-text">Asignacion de Roles - Marque los roles asignados a este permiso.</div>
+            <div class="card-body">
+                @foreach($this->roles as $item)
+                <div class="row">
+                    <label>
+                        <input wire:model="check_roles" value="{{ $item['id'] }}" type="checkbox" wire:click="$refresh">
+                        {{ $item['name'] }}
+                    </label>
+                </div>
+                @endforeach
+                <div>
+                    Seleccionado: {{ var_export($this->check_roles) }}
                 </div>
             </div>
         </div>
@@ -110,13 +113,6 @@
                                 <input readonly type="name" wire:model="name" class="form-control" >
                                 @error('name') <span class="error">{{ $message }}</span> @enderror
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Guard Name</span>
-                            <input readonly type="text" wire:model="guard_name" class="form-control" >
-                            @error('guard_name') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>
