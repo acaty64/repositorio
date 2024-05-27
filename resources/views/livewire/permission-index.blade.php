@@ -16,16 +16,16 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <th>Id</th>
-                    <th>Ruta de Permiso</th>
                     <th>Descripción</th>
+                    <th>Ruta de Permiso</th>
                     <th></th>
                 </thead>
                 <tbody>
                     @foreach ($permissions as $permission)
                     <tr>
                         <td>{{$permission->id}}</td>
-                        <td>{{$permission->name}}</td>
                         <td>{{$permission->description}}</td>
+                        <td>{{$permission->name}}</td>
                         <td>
                             @can('admin.permission.edit')
                                 <a class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $permission->id }})">Editar</a>

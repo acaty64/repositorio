@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\RoleHasPermission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Livewire\Component;
@@ -75,6 +76,8 @@ class PermissionIndex extends Component
     	$permission = Permission::find($this->permission_id);
 		$this->name = $permission->name;
 		$this->description = $permission->description;
+        $this->roles = Role::all();
+        $this->check_roles = RoleHasPermission::getRoles($this->permission_id);
     }
     
     public function destroy()
