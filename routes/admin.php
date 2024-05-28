@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\TdocController;
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     
     Route::resource('permission', PermissionController::class)->names('admin.permission');
+    Route::resource('role', RoleController::class)->names('admin.role');
     Route::resource('document', DocumentController::class)->names('admin.document');
     Route::resource('office', OfficeController::class)->names('admin.office');
     Route::resource('tdoc', TdocController::class)->names('admin.tdoc');

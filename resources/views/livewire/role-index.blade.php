@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col">
                 <span class="float-left">
-                    <h1>Lista de Permisos</h1>
+                    <h1>Lista de Roles</h1>
                 </span>
                 <span class="float-right">
-                    @can('admin.permission.create')
+                    @can('admin.role.create')
                     <button class="btn-success btn-lg float-right" wire:click="setStatus('create')">Agregar</button>
                     @endcan
                 </span>
@@ -17,28 +17,26 @@
                 <thead>
                     <th>Id</th>
                     <th>Descripción</th>
-                    <th>Ruta de Permiso</th>
                     <th></th>
                 </thead>
                 <tbody>
-                    @foreach ($permissions as $permission)
+                    @foreach ($roles as $role)
                     <tr>
-                        <td>{{$permission->id}}</td>
-                        <td>{{$permission->description}}</td>
-                        <td>{{$permission->name}}</td>
+                        <td>{{$role->id}}</td>
+                        <td>{{$role->name}}</td>
                         <td>
-                            @can('admin.permission.edit')
-                                <a class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $permission->id }})">Editar</a>
+                            @can('admin.role.edit')
+                                <a class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $role->id }})">Editar</a>
                             @endcan
-                            @can('admin.permission.destroy')
-                                <a class='btn btn-danger' wire:click="setStatus('destroy', {{ $permission->id }})">Borrar</a>
+                            @can('admin.role.destroy')
+                                <a class='btn btn-danger' wire:click="setStatus('destroy', {{ $role->id }})">Borrar</a>
                             @endcan
                         </td>
                     </tr> 
                     @endforeach
                 </tbody>
             </table>
-            <div class="px-6 py-3">{{ $permissions->links() }}</div>
+            <div class="px-6 py-3">{{ $roles->links() }}</div>
         </div>
     @endif
     @if( $status == 'create' || $status == 'edit')
@@ -46,11 +44,11 @@
             <div class="card-header">
                 @if( $status == 'edit' )
                     <div>
-                        <h1>Edición de Permiso Id: {{ $permission_id }}</h1>
+                        <h1>Edición de Rol Id: {{ $role_id }}</h1>
                     </div>
                 @endif
                 @if( $status == 'create' )
-                    <h1>Nuevo Permiso</h1>
+                    <h1>Nuevo Rol</h1>
                 @endif
                 <div class="row">
                     <div class="col-sm-3">
@@ -65,39 +63,31 @@
                 <div class="input-group mb-3">
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Ruta de Permiso</span>
+                            <span class="input-group-text" id="basic-addon1">Descripción</span>
                             <input type="text" wire:model="name" class="form-control">
                             @error('name') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>
-                <div class="input-group mb-3">
-                    <div class="col-sm-12">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Descripción</span>
-                            <input type="text" wire:model="description" class="form-control">
-                            @error('description') <span class="error">{{ $message }}</span> @enderror
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="input-group-text">Asignacion de Roles - Marque los roles asignados a este permiso.</div>
+            <div class="input-group-text">Asignación de Permisos - Marque los permisos asignados a este rol.</div>
             <div class="card-body">
-                @foreach($this->roles as $item)
                 <div class="row">
-                    <label>
-                        <input wire:model="check_roles" value="{{ $item['id'] }}" type="checkbox" wire:click="$refresh">
-                        {{ $item['name'] }}
+                @foreach($this->permissions as $item)
+                    <label class="col-md-6">
+                        <input wire:model="check_permissions" value="{{ $item['id'] }}" type="checkbox" wire:click="$refresh">
+                        {{ $item['description'] }}
                     </label>
-                </div>
                 @endforeach
+                </div>
             </div>
+            <!--Seleccionado: {{ var_export($this->check_permissions) }}-->
         </div>
     @endif
     @if( $status == 'destroy' )
         <div class="container">
             <div class="card-header">
-                <h1>Permiso a Eliminar Id: {{ $permission_id }}</h1>
+                <h1>Rol a Eliminar Id: {{ $role_id }}</h1>
                 <button class="btn-warning btn-lg" wire:click="setStatus('index')">Regresar</button>
                 <button class="btn-danger btn-lg" wire:click="save">Eliminar</button>
             </div>
@@ -106,19 +96,10 @@
                     <div class="input-group mb-3">
                         <div class="col-sm-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Ruta de Permiso</span>
+                                <span class="input-group-text" id="basic-addon1">Descripción</span>
                                 <input readonly type="name" wire:model="name" class="form-control" >
                                 @error('name') <span class="error">{{ $message }}</span> @enderror
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="col-sm-12">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Descripción</span>
-                            <input readonly type="text" class="form-control" wire:model="description">
-                            @error('description') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>

@@ -329,7 +329,9 @@ return [
                 ],
                 [
                     'text' => 'Roles',
-                    'url' => '#',
+                    'route' => 'admin.role.index',
+                    'can' => 'admin.role.index',
+                    'icon' => 'fas fa-fw fa-home',
                 ],
             ],
         ],

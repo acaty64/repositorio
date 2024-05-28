@@ -55,7 +55,7 @@ class DashboardTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('admin.index');
         $response->assertDontSeeText('Usuarios');
-        $response->assertSeeText('Accesos');
+        $response->assertDontSeeText('Accesos');
         $response->assertSeeText('Oficinas');
         $response->assertSeeText('Documentos');
     }    
