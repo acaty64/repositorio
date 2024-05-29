@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests_phpunit\Feature;
 
 use App\Models\RoleHasPermission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use Tests\TestCase;
+use Tests_phpunit\TestCase;
 
 class ExampleTest extends TestCase
 {

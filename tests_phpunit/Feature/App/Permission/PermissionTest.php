@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Feature\App\Permission;
+namespace Tests_phpunit\Feature\App\Permission;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\User;
-use Tests\TestCase;
+use Tests_phpunit\TestCase;
 
 class PermissionTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature\Profile;
+namespace tests_phpunit\Feature\Profile;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
+use Tests_phpunit\TestCase;
 
 class ProfileTest extends TestCase
 {

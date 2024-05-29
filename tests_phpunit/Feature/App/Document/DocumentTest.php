@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\Feature\App\Office;
+namespace Tests_phpunit\Feature\App\Document;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\User;
-use Tests\TestCase;
+use Tests_phpunit\TestCase;
 
-class OfficeTest extends TestCase
+class DocumentTest extends TestCase
 {
     use DatabaseTransactions;
     
-    public function test_authorizated_users_can_view_office_index_view(): void
+    public function test_authorizated_users_can_view_Document_index_view(): void
     {
         $user1 = User::factory()->create();
         $user1->assignRole('master');
@@ -25,27 +25,27 @@ class OfficeTest extends TestCase
 
         $response = $this
             ->actingAs($user1)
-            ->get(route('admin.office.index'));
+            ->get(route('admin.document.index'));
         $response->assertStatus(200);
 
         $response = $this
             ->actingAs($user2)
-            ->get(route('admin.office.index'));
+            ->get(route('admin.document.index'));
         $response->assertStatus(200);
 
         $response = $this
             ->actingAs($user3)
-            ->get(route('admin.office.index'));
+            ->get(route('admin.document.index'));
         $response->assertStatus(200);
 
         $response = $this
             ->actingAs($user4)
-            ->get(route('admin.office.index'));
+            ->get(route('admin.document.index'));
         $response->assertStatus(200);
         
     }
 
-    public function test_only_authorizated_users_can_view_office_create_view(): void
+    public function test_authorizated_users_can_view_Document_create_view(): void
     {
         $user1 = User::factory()->create();
         $user1->assignRole('master');
@@ -58,23 +58,23 @@ class OfficeTest extends TestCase
 
         $response = $this
             ->actingAs($user1)
-            ->get(route('admin.office.create'));
+            ->get(route('admin.document.create'));
         $response->assertStatus(200);
 
         $response = $this
             ->actingAs($user2)
-            ->get(route('admin.office.create'));
+            ->get(route('admin.document.create'));
         $response->assertStatus(200);
 
         $response = $this
             ->actingAs($user3)
-            ->get(route('admin.office.create'));
-        $response->assertStatus(403);
+            ->get(route('admin.document.create'));
+        $response->assertStatus(200);
 
         $response = $this
             ->actingAs($user4)
-            ->get(route('admin.office.create'));
-        $response->assertStatus(403);
+            ->get(route('admin.document.create'));
+        $response->assertStatus(200);
         
     }
 

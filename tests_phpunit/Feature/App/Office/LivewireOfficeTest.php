@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature\Office;
+namespace tests_phpunit\Feature\Office;
 
 use App\Livewire\OfficeIndex;
 use App\Models\Office;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Livewire\Livewire;
-use Tests\TestCase;
+use Tests_phpunit\TestCase;
 
 class LivewireOfficeTest extends TestCase
 {

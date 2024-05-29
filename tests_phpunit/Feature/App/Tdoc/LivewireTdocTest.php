@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature\Tdoc;
+namespace tests_phpunit\Feature\Tdoc;
 
 use App\Livewire\TdocIndex;
 use App\Models\Tdoc;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Livewire\Livewire;
-use Tests\TestCase;
+use Tests_phpunit\TestCase;
 
 class LivewireTdocTest extends TestCase
 {

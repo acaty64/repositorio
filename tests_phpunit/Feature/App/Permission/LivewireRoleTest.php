@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Role;
+namespace tests_phpunit\Feature\Role;
 
 use App\Livewire\RoleIndex;
 use Spatie\Permission\Models\Role;
@@ -8,7 +8,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Livewire\Livewire;
-use Tests\TestCase;
+use Tests_phpunit\TestCase;
 
 class LivewireRoleTest extends TestCase
 {
