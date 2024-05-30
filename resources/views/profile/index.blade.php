@@ -3,6 +3,7 @@
 @section('title', 'Repositorio UCSS')
 
 @section('content_header')
+<h2>Lista de Usuarios</h2>
 <table class="table table-striped">
     <thead>
         <th>Id</th>
