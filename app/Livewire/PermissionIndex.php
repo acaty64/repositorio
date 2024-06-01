@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\RoleHasPermission;
+use Illuminate\Support\Facades\Route; 
+use Illuminate\Validation\Validator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Livewire\Component;
@@ -20,6 +22,7 @@ class PermissionIndex extends Component
     public $description;
     public $roles = [];
     public $check_roles = [];
+    public $rutas;
 
     public function render()
     {
@@ -28,17 +31,31 @@ class PermissionIndex extends Component
         ]);
     }
 
-    protected $rules = [
-        'name' => 'required',
-        'description' => 'required',
-    ];
-
+    protected function rules()
+    {
+        return [
+            'name' => 'required|max:250',
+            'description' => 'required|max:250',
+        ];
+    }
+    
     public function mount()
     {
-    	$this->status = 'index';
+        $this->status = 'index';
         $this->check_roles = [1];
     }
-
+    
+    public function route_exists($name)
+    {
+        $routeCollection = Route::getRoutes();
+        foreach ($routeCollection as $value) {
+            if ($value->getName() == $name) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public function setStatus($value, $id = null)
     {
     	$this->status = $value;
@@ -91,7 +108,14 @@ class PermissionIndex extends Component
     {
     	if($this->status == 'edit')
     	{
-        	$this->validate();
+            $this->withValidator(function (Validator $validator) {
+                $validator->after(function ($validator) {
+                    if (!$this->route_exists($this->name)) {
+                        $validator->errors()->add('name', 'La ruta no existe.');
+                    }
+                });
+            })->validate();
+
             $aroles = [];
             foreach ($this->check_roles as $item) {
                 $role = Role::findOrFail($item);
@@ -103,7 +127,14 @@ class PermissionIndex extends Component
 			$permission->save();
             $permission->syncRoles($aroles);
     	}elseif( $this->status == 'create'){
-            $this->validate();
+            $this->withValidator(function (Validator $validator) {
+                $validator->after(function ($validator) {
+                    if (!$this->route_exists($this->name)) {
+                        $validator->errors()->add('name', 'La ruta no existe.');
+                    }
+                });
+            })->validate();
+
             $aroles = [];
             foreach ($this->check_roles as $item) {
                 $role = Role::findOrFail($item);
