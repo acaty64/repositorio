@@ -20,6 +20,7 @@ class RoleIndex extends Component
     public $description;
     public $permissions = [];
     public $check_permissions = [];
+    public $checks = [];
 
     public function render()
     {
@@ -27,28 +28,34 @@ class RoleIndex extends Component
             'roles' => Role::paginate(5)
         ]);
     }
-
+    
     protected $rules = [
         'name' => 'required',
     ];
-
+    
     public function mount()
     {
-    	$this->status = 'index';
-        $this->check_permissions = [];
+        $this->status = 'index';
+    }
+    
+    public function clickCheck()
+    {
+        $this->checks = Permission::select('id', 'description')
+                        ->whereIn('id', $this->check_permissions)
+                        ->orderBy('description', 'ASC')->get();
     }
 
     public function setStatus($value, $id = null)
     {
-    	$this->status = $value;
+        $this->status = $value;
     	$this->role_id = $id;
     	if($value == 'create')
     	{
-    		$this->create();
+            $this->create();
     	}
     	if($value == 'edit')
     	{
-    		$this->role_id = $id;
+            $this->role_id = $id;
     		$this->edit();
     	}
         if($value == 'destroy')
@@ -60,7 +67,7 @@ class RoleIndex extends Component
 
     public function create()
     {
-		$this->name = "";
+        $this->name = "";
 		$this->description = '';
         $data_permissions = Permission::orderBy('description', 'ASC')->get();
         $permissions = [];
@@ -68,15 +75,18 @@ class RoleIndex extends Component
             $permissions[] = ['id' =>$item->id, 'description' => $item->description]; 
         }
         $this->permissions = $permissions;
+        $this->check_permissions = [];
+        $this->clickCheck();
     }
-
+    
     public function edit()
     {
-    	$role = Role::find($this->role_id);
+        $role = Role::find($this->role_id);
 		$this->name = $role->name;
 		$this->description = $role->description;
         $this->permissions = Permission::orderBy('description', 'ASC')->get();
         $this->check_permissions = RoleHasPermission::getPermissions($this->role_id);
+        $this->clickCheck();
     }
     
     public function destroy()

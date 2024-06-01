@@ -1,6 +1,6 @@
 <?php
 
-namespace tests_phpunit\Feature\Permission;
+namespace Tests_phpunit\Feature\App\Permission;
 
 use App\Livewire\PermissionIndex;
 use Spatie\Permission\Models\Role;

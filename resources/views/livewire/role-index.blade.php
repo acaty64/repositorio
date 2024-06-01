@@ -71,17 +71,29 @@
                 </div>
             </div>
             <div class="input-group-text">Asignación de Permisos - Marque los permisos asignados a este rol.</div>
-            <div class="card-body">
-                <div class="row">
-                @foreach($this->permissions as $item)
-                    <label class="col-md-6">
-                        <input wire:model="check_permissions" value="{{ $item['id'] }}" type="checkbox" wire:click="$refresh">
-                        {{ $item['description'] }}
-                    </label>
-                @endforeach
+            <div class="input-group-text">
+                <div class="container">
+                    <div class="row">
+                        Permisos asignados:  
+                    </div>
+                    <div class="row">
+                        @foreach($this->checks as $item_check)
+                            <span class="badge text-bg-primary">{{ $item_check['description'] }}</span>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-            <!--Seleccionado: {{ var_export($this->check_permissions) }}-->
+            <div class="card-body">
+                <div class="row">
+                    @foreach($this->permissions as $item)
+                        <label class="col-md-6">
+                            <input wire:model="check_permissions" wire:click="clickCheck" value="{{ $item['id'] }}" type="checkbox" wire:click="$refresh">
+                            {{ $item['description'] }}
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+            <Seleccionado: {{ var_export($this->check_permissions) }}>
         </div>
     @endif
     @if( $status == 'destroy' )

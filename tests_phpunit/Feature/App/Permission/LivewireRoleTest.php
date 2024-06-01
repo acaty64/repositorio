@@ -1,6 +1,6 @@
 <?php
 
-namespace tests_phpunit\Feature\Role;
+namespace Tests_phpunit\Feature\App\Permission;
 
 use App\Livewire\RoleIndex;
 use Spatie\Permission\Models\Role;
@@ -42,6 +42,7 @@ class LivewireRoleTest extends TestCase
             ->call('setStatus', 'create')
             ->set('name', $data['name'])
             ->set('check_permissions', $permisos)
+            ->set('checks', [])
             ->call('save');
             // ->assertSeeHtml('Registro grabado.');
             
@@ -102,7 +103,6 @@ class LivewireRoleTest extends TestCase
 
     public function test_master_can_destroy_a_role_registry()
     {
-        //$this->todo('Agregar test async roles');
         
         $master = User::find(1);
         $this->actingAs($master);
