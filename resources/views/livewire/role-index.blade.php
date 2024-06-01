@@ -69,6 +69,14 @@
                         </div>
                     </div>
                 </div>
+                @if( $status == 'create' )
+                    <label for="selectRole" class="form-label">Seleccione el rol a copiar sus permisos: </label>
+                    <select id="selectRole" wire:model.change="copy_role" class="form-select form-select-lg ml-3">
+                        @foreach($this->copy_roles as $item_rol)
+                            <option value={{ $item_rol->id }}>{{ $item_rol->name }}</option>
+                        @endforeach
+                    </select>
+                @endif
             </div>
             <div class="input-group-text">Asignación de Permisos - Marque los permisos asignados a este rol.</div>
             <div class="input-group-text">
@@ -87,13 +95,13 @@
                 <div class="row">
                     @foreach($this->permissions as $item)
                         <label class="col-md-6">
-                            <input wire:model="check_permissions" wire:click="clickCheck" value="{{ $item['id'] }}" type="checkbox" wire:click="$refresh">
+                            <input wire:model="checkPermissions" value="{{ $item['id'] }}" type="checkbox" wire:click="$refresh">
                             {{ $item['description'] }}
                         </label>
                     @endforeach
                 </div>
             </div>
-            <Seleccionado: {{ var_export($this->check_permissions) }}>
+            <Seleccionado: {{ var_export($this->checkPermissions) }}>
         </div>
     @endif
     @if( $status == 'destroy' )

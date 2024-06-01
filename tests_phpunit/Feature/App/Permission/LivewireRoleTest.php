@@ -3,6 +3,7 @@
 namespace Tests_phpunit\Feature\App\Permission;
 
 use App\Livewire\RoleIndex;
+use App\Models\RoleHasPermission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
@@ -41,7 +42,7 @@ class LivewireRoleTest extends TestCase
         Livewire::test(RoleIndex::class)
             ->call('setStatus', 'create')
             ->set('name', $data['name'])
-            ->set('check_permissions', $permisos)
+            ->set('checkPermissions', $permisos)
             ->set('checks', [])
             ->call('save');
             // ->assertSeeHtml('Registro grabado.');
@@ -87,7 +88,7 @@ class LivewireRoleTest extends TestCase
             ->call('setStatus', 'edit', $role->id)
             ->assertSet('name', $data['name'])
             ->set('name', $newData['name'])
-            ->set('check_permissions', $newPermisos)
+            ->set('checkPermissions', $newPermisos)
             ->call('save');
 
         $this->assertDatabaseHas('roles', $newData);
@@ -118,5 +119,35 @@ class LivewireRoleTest extends TestCase
         $this->assertDatabaseMissing('roles', $role->toArray());
         $this->assertFalse($master->can($role['name']));
     }
-    
+    public function test_master_can_add_a_role_registry_with_copy_role()
+    {
+       // $this->todo('Agregar test copia de permisos de otro rol');
+
+        $master = User::find(1);
+        $this->actingAs($master);
+
+        $operador = User::where('name', 'Operador')->first();
+
+        $data = [
+            'name' => 'Nuevo Rol',
+        ];
+
+        Livewire::test(RoleIndex::class)
+            ->set('status', 'create')
+            ->assertSeeHtml('Nuevo Rol')
+            ->set('copy_role', $operador->id)
+            ->assertSeeHtml('Permisos')
+            ->set('name', $data['name'])
+            ->call('save');
+            // ->assertSeeHtml('Registro grabado.');
+        
+        $permisos = RoleHasPermission::getPermissions($operador->id);
+            
+        $this->assertDatabaseHas('roles', $data);
+        $role = Role::where('name', $data['name'])->first(); 
+        foreach ($permisos as $item) {
+            $permiso = Permission::findOrFail($item); 
+            $this->assertTrue($role->hasPermissionTo($permiso['name']));
+        }        
+    }    
 }

@@ -19,8 +19,10 @@ class RoleIndex extends Component
     public $guard_name = 'web';
     public $description;
     public $permissions = [];
-    public $check_permissions = [];
+    public $checkPermissions;
     public $checks = [];
+    public $copy_roles = [];
+    public $copy_role;
 
     public function render()
     {
@@ -38,10 +40,16 @@ class RoleIndex extends Component
         $this->status = 'index';
     }
     
-    public function clickCheck()
+    public function updatedCopyRole()
+    {
+        $this->checkPermissions = RoleHasPermission::getPermissions($this->copy_role);
+        $this->updatedCheckPermissions();
+    }
+
+    public function updatedCheckPermissions()
     {
         $this->checks = Permission::select('id', 'description')
-                        ->whereIn('id', $this->check_permissions)
+                        ->whereIn('id', $this->checkPermissions)
                         ->orderBy('description', 'ASC')->get();
     }
 
@@ -75,8 +83,11 @@ class RoleIndex extends Component
             $permissions[] = ['id' =>$item->id, 'description' => $item->description]; 
         }
         $this->permissions = $permissions;
-        $this->check_permissions = [];
-        $this->clickCheck();
+        $this->checkPermissions = [];
+        $this->copy_roles = Role::all();
+        $this->copy_role = 1;
+        $this->updatedCopyRole();
+        $this->updatedCheckPermissions();
     }
     
     public function edit()
@@ -85,8 +96,7 @@ class RoleIndex extends Component
 		$this->name = $role->name;
 		$this->description = $role->description;
         $this->permissions = Permission::orderBy('description', 'ASC')->get();
-        $this->check_permissions = RoleHasPermission::getPermissions($this->role_id);
-        $this->clickCheck();
+        $this->checkPermissions = RoleHasPermission::getPermissions($this->role_id);
     }
     
     public function destroy()
@@ -102,7 +112,7 @@ class RoleIndex extends Component
     	{
             $this->validate();
             $apermissions = [];
-            foreach ($this->check_permissions as $item) {
+            foreach ($this->checkPermissions as $item) {
                 $permission = Permission::findOrFail($item);
                 $apermissions[] = $permission;
             }
@@ -113,7 +123,7 @@ class RoleIndex extends Component
     	}elseif( $this->status == 'create'){
             $this->validate();
             $apermissions = [];
-            foreach ($this->check_permissions as $item) {
+            foreach ($this->checkPermissions as $item) {
                 $permission = Permission::findOrFail($item);
                 $apermissions[] = $permission;
             }
