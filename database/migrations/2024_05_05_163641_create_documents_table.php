@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->string('origin', 150);
-            $table->integer('sender');
+            $table->integer('office_id');
             $table->string('filename', 150);
             $table->string('link');
             $table->string('display', 15);

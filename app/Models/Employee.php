@@ -12,6 +12,6 @@ class Employee extends Model
 
     public function subject(): MorphOne
     {
-        return $this->morphOne(Subject::class, 'commentable');
+        return $this->morphOne(Subject::class, 'subjectable');
     }
 }

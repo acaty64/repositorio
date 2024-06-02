@@ -9,6 +9,8 @@ class Document extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['date', 'origin', 'office_id', 'filename', 'link', 'display', 'status'];
+
     protected $append = ['subjects'];
 
     public function getSubjects()

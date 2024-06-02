@@ -10,6 +10,8 @@ class Subject extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['document_id', 'subjectable_type', 'subjectable_id'];
+
     public function subjetable(): MorphTo
     {
         return $this->morphTo();
