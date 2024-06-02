@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     use HasFactory;
+
+    protected $append = ['subjects'];
+
+    public function getSubjects()
+    {
+        return Subject::where('document_id', $this->id)->get();
+    }
 }

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
+            $table->morphs('subjectable');
+            $table->foreignId('document_id');
             $table->timestamps();
         });
     }

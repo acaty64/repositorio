@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->string('origin', 150);
+            $table->integer('sender');
+            $table->string('filename', 150);
+            $table->string('link');
+            $table->string('display', 15);
+            $table->string('status', 15);
             $table->timestamps();
         });
     }
