@@ -37,13 +37,14 @@ class LivewireDocumentTest extends TestCase
         $this->actingAs($master);
         
         Livewire::test(DocumentIndex::class)
-        ->set('status', 'create')
-        ->assertSeeHtml('Nuevo Documento');
+            ->set('status', 'create')
+            ->assertSeeHtml('Nuevo Documento');
         
         $data = [
             'date' => Carbon::now(),
             'origin' => 'Institucion externa',
             'office_id' => 1,
+            'abstract' => 'Nuevo Resumen del documento.',
             'filename' => 'archivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',
@@ -52,15 +53,16 @@ class LivewireDocumentTest extends TestCase
 
         $this->actingAs($master);
         Livewire::test(DocumentIndex::class)
-        ->call('setStatus', 'create')
-        ->set('date', $data['date'])
-        ->set('origin', $data['origin'])
-        ->set('office_id', $data['office_id'])
-        ->set('filename', $data['filename'])
-        ->set('link', $data['link'])
-        ->set('display', $data['display'])
-        ->set('state', $data['state'])
-        ->call('save');
+            ->call('setStatus', 'create')
+            ->set('date', $data['date'])
+            ->set('origin', $data['origin'])
+            ->set('office_id', $data['office_id'])
+            ->set('abstract', $data['abstract'])
+            ->set('filename', $data['filename'])
+            ->set('link', $data['link'])
+            ->set('display', $data['display'])
+            ->set('state', $data['state'])
+            ->call('save');
         // ->assertSeeHtml('Registro grabado.');
         
         $this->assertDatabaseHas('documents', $data);
@@ -77,6 +79,7 @@ class LivewireDocumentTest extends TestCase
             'date' => Carbon::now(),
             'origin' => 'Institucion externa',
             'office_id' => 1,
+            'abstract' => 'Resumen del documento',
             'filename' => 'archivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',
@@ -90,6 +93,7 @@ class LivewireDocumentTest extends TestCase
             'date' => Carbon::now(),
             'origin' => 'Nueva Institucion externa',
             'office_id' => 2,
+            'abstract' => 'Nuevo Resumen del documento.',
             'filename' => 'nuevoarchivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',
@@ -106,6 +110,7 @@ class LivewireDocumentTest extends TestCase
         ->call('setStatus', 'edit', $document->id)
         ->assertSet('origin', $data['origin'])
         ->set('origin', $newData['origin'])
+        ->set('abstract', $newData['abstract'])
         ->set('office_id', $newData['office_id'])
         ->set('filename', $newData['filename'])
         ->call('save');
@@ -125,6 +130,7 @@ class LivewireDocumentTest extends TestCase
             'date' => Carbon::now(),
             'origin' => 'Institucion externa',
             'office_id' => 1,
+            'abstract' => 'Resumen del documento.',
             'filename' => 'archivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',

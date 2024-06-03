@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('office_id');
             $table->integer('user_id');
             $table->integer('task_id');
+            $table->datetime('expiry');
             $table->string('state');
             $table->timestamps();
         });

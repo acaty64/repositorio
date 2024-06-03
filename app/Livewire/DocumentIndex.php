@@ -16,6 +16,7 @@ class DocumentIndex extends Component
     public $date;
     public $origin;
     public $office_id;
+    public $abstract;
     public $filename;
     public $link;
     public $display;
@@ -70,6 +71,7 @@ class DocumentIndex extends Component
 		$this->date = Carbon::now()->format('d/m/Y');
 		$this->office_id = 0;
 		$this->filename = '';
+		$this->abstract = '';
 		$this->link = '';
 		$this->display = '';
 		$this->state = 'pendiente';
@@ -82,6 +84,7 @@ class DocumentIndex extends Component
 		$this->date = $document->date;
 		$this->origin = $document->origin;
 		$this->office_id = $document->office_id;
+		$this->abstract = $document->abstract;
 		$this->filename = $document->filename;
 		$this->link = $document->link;
 		$this->display = $document->display;
@@ -94,6 +97,7 @@ class DocumentIndex extends Component
 		$this->date = $document->date;
 		$this->origin = $document->origin;
 		$this->office_id = $document->office_id;
+		$this->abstract = $document->abstract;
 		$this->filename = $document->filename;
 		$this->link = $document->link;
 		$this->display = $document->display;
@@ -109,6 +113,7 @@ class DocumentIndex extends Component
 			$document->date = $this->date ;
 			$document->origin = $this->origin ;
 			$document->office_id = $this->office_id ;
+			$document->abstract = $this->abstract ;
 			$document->filename = $this->filename ;
 			$document->link = $this->link ;
 			$document->display = $this->display ;
@@ -120,6 +125,7 @@ class DocumentIndex extends Component
 				'date' => $this->date ,
 				'origin' => $this->origin ,
 				'office_id' => $this->office_id ,
+				'abstract' => $this->abstract ,
 				'filename' => $this->filename ,
 				'link' => $this->link ,
 				'display' => $this->display ,

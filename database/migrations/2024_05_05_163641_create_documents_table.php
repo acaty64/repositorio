@@ -16,6 +16,7 @@ return new class extends Migration
             $table->datetime('date');
             $table->string('origin', 150)->nullable();
             $table->bigInteger('office_id');
+            $table->mediumText('abstract');
             $table->string('filename', 150);
             $table->string('link');
             $table->string('display', 15);

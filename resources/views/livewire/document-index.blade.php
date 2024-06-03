@@ -19,10 +19,11 @@
                     <th>Fecha</th>
                     <th>Origen</th>
                     <th>Oficina de Origen</th>
+                    <th>Resumen</th>
                     <th>Documento</th>
                     <th>Enlace</th>
                     <th>Exposición</th>
-                    <th>Status</th>
+                    <th>Estado</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -30,6 +31,8 @@
                     <tr>
                         <td>{{$document->id}}</td>
                         <td>{{$document->origin}}</td>
+                        <td>{{$document->office_id}}</td>
+                        <td>{{$document->abstract}}</td>
                         <td>{{$document->filename}}</td>
                         <td>{{$document->link}}</td>
                         <td>{{$document->display}}</td>
@@ -92,8 +95,17 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Oficina</span>
-                            <input type="text" wire:model="office" class="form-control">
+                            <input type="text" wire:model="office_id" class="form-control">
                             @error('office') <span class="error">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="col-sm-12">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Resumen</span>
+                            <input type="text" wire:model="abstract" class="form-control">
+                            @error('abstract') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>
@@ -127,7 +139,7 @@
                 <div class="input-group mb-3">
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Status</span>
+                            <span class="input-group-text" id="basic-addon1">Estado</span>
                             <input type="text" wire:model="state" class="form-control">
                             @error('state') <span class="error">{{ $message }}</span> @enderror
                         </div>
@@ -166,7 +178,15 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Oficina</span>
-                            <input readonly type="text" wire:model="office" class="form-control">
+                            <input readonly type="text" wire:model="office_id" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="col-sm-12">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Resumen</span>
+                            <input readonly type="text" wire:model="abstract" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -197,7 +217,7 @@
                 <div class="input-group mb-3">
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Status</span>
+                            <span class="input-group-text" id="basic-addon1">Estado</span>
                             <input readonly type="text" wire:model="state" class="form-control">
                         </div>
                     </div>
