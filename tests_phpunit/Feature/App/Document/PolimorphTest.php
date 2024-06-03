@@ -27,7 +27,7 @@ class PolimorphTest extends TestCase
             'filename' => 'documento.pdf', 
             'link' => 'as5f1s5d.pdf', 
             'display' => 'public', 
-            'place' => 'pendiente'
+            'state' => 'pendiente'
         ]);
 
         $student = Student::find(1);
@@ -52,7 +52,7 @@ class PolimorphTest extends TestCase
             'filename' => 'documento.pdf', 
             'link' => 'as5f1s5d.pdf', 
             'display' => 'public', 
-            'place' => 'pendiente'
+            'state' => 'pendiente'
         ]);
 
         $employee = Employee::find(1);

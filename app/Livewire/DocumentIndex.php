@@ -20,7 +20,7 @@ class DocumentIndex extends Component
     public $link;
     public $display;
     public $document_id;
-    public $place;
+    public $state;
     
     public $status;
 
@@ -37,7 +37,7 @@ class DocumentIndex extends Component
         'filename' => 'required',
         'link' => 'required',
         'display' => 'required',
-        'place' => 'required',
+        'state' => 'required',
     ];
 
     public function mount()
@@ -72,7 +72,7 @@ class DocumentIndex extends Component
 		$this->filename = '';
 		$this->link = '';
 		$this->display = '';
-		$this->place = 'pendiente';
+		$this->state = 'pendiente';
     }    
 
     public function edit()
@@ -85,7 +85,7 @@ class DocumentIndex extends Component
 		$this->filename = $document->filename;
 		$this->link = $document->link;
 		$this->display = $document->display;
-		$this->place = $document->place;
+		$this->state = $document->state;
     }
 
     public function destroy()
@@ -97,7 +97,7 @@ class DocumentIndex extends Component
 		$this->filename = $document->filename;
 		$this->link = $document->link;
 		$this->display = $document->display;
-		$this->place = $document->place;
+		$this->state = $document->state;
     }
 
     public function save()
@@ -112,7 +112,7 @@ class DocumentIndex extends Component
 			$document->filename = $this->filename ;
 			$document->link = $this->link ;
 			$document->display = $this->display ;
-			$document->place = $this->place ;
+			$document->state = $this->state ;
 			$document->save();
     	}elseif( $this->status == 'create'){
             $this->validate();
@@ -123,7 +123,7 @@ class DocumentIndex extends Component
 				'filename' => $this->filename ,
 				'link' => $this->link ,
 				'display' => $this->display ,
-				'place' => $this->place ,
+				'state' => $this->state ,
 	    	]);
     	}elseif( $this->status == 'destroy'){
             $document = Document::find($this->document_id);

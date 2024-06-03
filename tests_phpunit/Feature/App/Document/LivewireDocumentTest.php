@@ -47,7 +47,7 @@ class LivewireDocumentTest extends TestCase
             'filename' => 'archivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',
-            'place' => 'pendiente'
+            'state' => 'pendiente'
         ];
 
         $this->actingAs($master);
@@ -59,7 +59,7 @@ class LivewireDocumentTest extends TestCase
         ->set('filename', $data['filename'])
         ->set('link', $data['link'])
         ->set('display', $data['display'])
-        ->set('place', $data['place'])
+        ->set('state', $data['state'])
         ->call('save');
         // ->assertSeeHtml('Registro grabado.');
         
@@ -80,7 +80,7 @@ class LivewireDocumentTest extends TestCase
             'filename' => 'archivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',
-            'place' => 'pendiente'
+            'state' => 'pendiente'
         ];
         
         $document = Document::create($data);
@@ -93,7 +93,7 @@ class LivewireDocumentTest extends TestCase
             'filename' => 'nuevoarchivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',
-            'place' => 'pendiente'
+            'state' => 'pendiente'
         ];
         
         Livewire::actingAs($master)
@@ -128,7 +128,7 @@ class LivewireDocumentTest extends TestCase
             'filename' => 'archivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',
-            'place' => 'pendiente'
+            'state' => 'pendiente'
         ];
         
         $document = Document::create($data);

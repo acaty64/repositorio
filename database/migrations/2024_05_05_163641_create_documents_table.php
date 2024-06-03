@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('filename', 150);
             $table->string('link');
             $table->string('display', 15);
-            $table->string('place', 15);
+            $table->string('state', 15);
             $table->timestamps();
         });
     }

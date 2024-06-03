@@ -33,7 +33,7 @@
                         <td>{{$document->filename}}</td>
                         <td>{{$document->link}}</td>
                         <td>{{$document->display}}</td>
-                        <td>{{$document->place}}</td>
+                        <td>{{$document->state}}</td>
                         <td>
                             @can('admin.document.edit')
                                 <a class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $document->id }})">Editar</a>
@@ -128,8 +128,8 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Status</span>
-                            <input type="text" wire:model="place" class="form-control">
-                            @error('place') <span class="error">{{ $message }}</span> @enderror
+                            <input type="text" wire:model="state" class="form-control">
+                            @error('state') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Status</span>
-                            <input readonly type="text" wire:model="place" class="form-control">
+                            <input readonly type="text" wire:model="state" class="form-control">
                         </div>
                     </div>
                 </div>
