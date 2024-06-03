@@ -9,12 +9,19 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date', 'origin', 'office_id', 'filename', 'link', 'display', 'status'];
+    protected $fillable = ['date', 'origin', 'office_id', 'filename', 'link', 'display', 'place'];
 
-    protected $append = ['subjects'];
+    protected $append = ['getSubjects', 'getOffice'];
 
     public function getSubjects()
     {
         return Subject::where('document_id', $this->id)->get();
     }
+
+    public function getOffice()
+    {
+        return Office::find($this->office_id);
+    }
+
+
 }

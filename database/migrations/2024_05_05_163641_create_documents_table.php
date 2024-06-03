@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->string('origin', 150);
-            $table->integer('office_id');
+            $table->datetime('date');
+            $table->string('origin', 150)->nullable();
+            $table->bigInteger('office_id');
             $table->string('filename', 150);
             $table->string('link');
             $table->string('display', 15);
-            $table->string('status', 15);
+            $table->string('place', 15);
             $table->timestamps();
         });
     }

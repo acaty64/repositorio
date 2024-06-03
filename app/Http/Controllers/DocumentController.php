@@ -23,7 +23,7 @@ class DocumentController extends Controller implements \Illuminate\Routing\Contr
 
     public function index()
     {
-        return 'Lista de documentos';
+        return view('admin.document.index');
     }
 
     /**
