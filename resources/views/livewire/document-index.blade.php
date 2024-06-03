@@ -225,4 +225,5 @@
             </div>
         </div>
     @endif
+    @livewire('targets', ['document_id' => $document_id, 'status' => $status])
 </div>
