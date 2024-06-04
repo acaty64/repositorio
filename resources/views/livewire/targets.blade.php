@@ -7,7 +7,7 @@
                 </span>
                 <span class="float-right">
                     @can('admin.target.create')
-                    <button class="btn-success btn-lg float-right" wire:click="setStatus('create')">Agregar</button>
+                        <button class="btn-success btn-lg float-right" wire:click="setStatus('create')">Agregar</button>
                     @endcan
                 </span>
             </div>
@@ -16,7 +16,11 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <th>Id</th>
-                    <th>Nombre</th>
+                    <th>Oficina</th>
+                    <th>Persona</th>
+                    <th>Tarea</th>
+                    <th>Estado</th>
+                    <th>Vencimiento</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -40,7 +44,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="px-6 py-3">{{ $targets->links() }}</div>
         </div>
     @endif
     @if( $status == 'create' || $status == 'edit')
@@ -119,7 +122,7 @@
     @if( $status == 'destroy' )
         <div class="container">
             <div class="card-header">
-                <h1>Tipo de documento a Eliminar Id: {{ $target_id }}</h1>
+                <h1>Destino a Eliminar Id: {{ $target_id }}</h1>
                 <button class="btn-warning btn-lg" wire:click="setStatus('index')">Regresar</button>
                 <button class="btn-danger btn-lg" wire:click="save">Eliminar</button>
             </div>

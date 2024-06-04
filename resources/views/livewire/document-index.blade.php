@@ -39,10 +39,10 @@
                         <td>{{$document->state}}</td>
                         <td>
                             @can('admin.document.edit')
-                                <a class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $document->id }})">Editar</a>
+                            <a class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $document->id }})">Editar</a>
                             @endcan
                             @can('admin.document.destroy')
-                                <a class='btn btn-danger' wire:click="setStatus('destroy', {{ $document->id }})">Borrar</a>
+                            <a class='btn btn-danger' wire:click="setStatus('destroy', {{ $document->id }})">Borrar</a>
                             @endcan
                         </td>
                     </tr> 
@@ -56,9 +56,7 @@
         <div class="container">
             <div class="card-header">
                 @if( $status == 'edit' )
-                    <div>
-                        <h1>Edición de Documento Id: {{ $document_id }}</h1>
-                    </div>
+                    <div><h1>Edición de Documento Id: {{ $document_id }}</h1></div>
                 @endif
                 @if( $status == 'create' )
                     <h1>Nuevo Documento</h1>
@@ -148,6 +146,7 @@
             </div>
             <div class="input-group-text">Destino</div>
             <span>ToDo: Destino</span>
+            @livewire('targetIndex', ['document_id' => $document_id, 'status' => $status])
         </div>
     @endif
     @if( $status == 'destroy' )
@@ -225,5 +224,4 @@
             </div>
         </div>
     @endif
-    @livewire('targets', ['document_id' => $document_id, 'status' => $status])
 </div>

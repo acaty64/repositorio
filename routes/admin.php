@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('permission', PermissionController::class)->names('admin.permission');
     Route::resource('role', RoleController::class)->names('admin.role');
     Route::resource('document', DocumentController::class)->names('admin.document');
+    Route::resource('target', DocumentController::class)->names('admin.target');
     Route::resource('office', OfficeController::class)->names('admin.office');
     Route::resource('tdoc', TdocController::class)->names('admin.tdoc');
 });

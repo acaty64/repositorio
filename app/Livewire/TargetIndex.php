@@ -6,7 +6,7 @@ use App\Models\Target;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Targets extends Component
+class TargetIndex extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -22,17 +22,24 @@ class Targets extends Component
     public $target_id;
     public $targets = [];
 
-    public function render()
-    {
-        return view('livewire.targets', [
-            'targets' => Target::all()
-            //'targets' => Target::where('document_id', $this->document_id)->paginate(5)
-        ]);
-    }
+    protected $rules = [
+        'state' => 'required',
+    ];
 
     public function mount()
     {
-    	$this->status = 'index';
+        $this->status = 'index';
+    }
+    
+    public function render()
+    {
+        return view('livewire.targets', [
+            'targets' => Target::where('document_id', $this->document_id)->get(),
+        ]);
+        //'targets' => Target::where('document_id', $this->document_id)->paginate(5, ['*'], 'targetPage'),
+        //'targets' => Target::paginate(5, ['*'], 'targetPage'),
+        //'targets' => Target::where('document_id', $this->document_id)->paginate(5, ['*'], 'targetsPage')
+        //'targets' => Target::all(),
     }
 
     public function setStatus($value, $id = null)
@@ -89,7 +96,7 @@ class Targets extends Component
     	if($this->status == 'edit')
     	{
         	$this->validate();
-	    	$target = Target::find($this->tdoc_id);
+	    	$target = Target::find($this->target_id);
             $target->office_id = $this->office_id;
             $target->user_id = $this->user_id;
             $target->task_id = $this->task_id;
@@ -99,7 +106,7 @@ class Targets extends Component
     	}elseif( $this->status == 'create'){
             $this->validate();
 	    	Target::create([
-				'name' => $this->name ,
+				'document_id' => $this->document_id ,
                 'office_id' => $this->office_id,
                 'user_id' => $this->user_id,
                 'task_id' => $this->task_id,
