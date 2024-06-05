@@ -95,6 +95,17 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.target.destroy',
                             'description' => 'Eliminar destino'])->syncRoles([$role1, $role2]);;
 
+        Permission::create(['name' => 'admin.task.index',
+                            'description' => 'Ver lista de tareas'])->syncRoles([$role1, $role2, $role3, $role4]);
+        Permission::create(['name' => 'admin.task.create',
+                            'description' => 'Crear tarea'])->syncRoles([$role1, $role2, $role3, $role4]);
+        Permission::create(['name' => 'admin.task.show',
+                            'description' => 'Ver detalle de tarea'])->syncRoles([$role1, $role2, $role3, $role4]);
+        Permission::create(['name' => 'admin.task.edit',
+                            'description' => 'Modificar tarea'])->syncRoles([$role1, $role2, $role3]);;
+        Permission::create(['name' => 'admin.task.destroy',
+                            'description' => 'Eliminar tarea'])->syncRoles([$role1, $role2]);;
+
         Permission::create(['name' => 'profile.index',
                             'description' => 'Lista de usuarios'])->syncRoles([$role1, $role2]);
         Permission::create(['name' => 'profile.edit',

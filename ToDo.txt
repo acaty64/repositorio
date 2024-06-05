@@ -1,0 +1,13 @@
+****************** PENDIENTES
+document-index
+    * Agregar status create_2
+    * edit -> solo el office-user create
+
+Mostrar target index del Auth() en admin.index
+    * Agregar Responder
+
+*** Revisar user create
+
+
+*************** PARCIAL
+Crear task index (reemplazar user_id x name)

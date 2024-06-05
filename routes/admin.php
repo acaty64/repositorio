@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('role', RoleController::class)->names('admin.role');
     Route::resource('document', DocumentController::class)->names('admin.document');
     Route::resource('target', DocumentController::class)->names('admin.target');
+    Route::resource('task', DocumentController::class)->names('admin.task');
     Route::resource('office', OfficeController::class)->names('admin.office');
     Route::resource('tdoc', TdocController::class)->names('admin.tdoc');
 });
