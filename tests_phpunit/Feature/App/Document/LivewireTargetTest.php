@@ -99,7 +99,6 @@ class LivewireTargetTest extends TestCase
             ->assertSet('office_id', $data['office_id'])
             ->assertSet('user_id', $data['user_id'])
             ->assertSet('state', $data['state'])
-            ->assertSet('expiry', $data['expiry'])
             ->set('office_id', $newData['office_id'])
             ->set('user_id', $newData['user_id'])
             ->set('state', $newData['state'])

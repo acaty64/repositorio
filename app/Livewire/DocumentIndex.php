@@ -68,7 +68,7 @@ class DocumentIndex extends Component
 
     public function create()
     {
-		$this->date = Carbon::now()->format('d/m/Y');
+		$this->date = Carbon::now()->format('d-m-Y');
 		$this->office_id = 0;
 		$this->filename = '';
 		$this->abstract = '';
@@ -81,7 +81,7 @@ class DocumentIndex extends Component
     {
     	$document = Document::find($this->document_id);
 		$this->id = $document->id;
-		$this->date = $document->date;
+		$this->date = \Carbon\Carbon::createFromTimestamp(strtotime($document->date))->format('Y-m-d');
 		$this->origin = $document->origin;
 		$this->office_id = $document->office_id;
 		$this->abstract = $document->abstract;
@@ -94,7 +94,7 @@ class DocumentIndex extends Component
     public function destroy()
     {
     	$document = Document::find($this->document_id);
-		$this->date = $document->date;
+		$this->date = \Carbon\Carbon::createFromTimestamp(strtotime($document->date))->format('Y-m-d');
 		$this->origin = $document->origin;
 		$this->office_id = $document->office_id;
 		$this->abstract = $document->abstract;

@@ -30,6 +30,7 @@
                     @foreach ($documents as $document)
                     <tr>
                         <td>{{$document->id}}</td>
+                        <td>{{ \Carbon\Carbon::createFromTimestamp(strtotime($document->date))->format('d-m-Y') }}</td>
                         <td>{{$document->origin}}</td>
                         <td>{{$document->office_id}}</td>
                         <td>{{$document->abstract}}</td>
@@ -75,7 +76,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Fecha de Documento</span>
-                            <input type="text" wire:model="date" class="form-control">
+                            <input type="date" wire:model="date" class="form-control">
                             @error('date') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>

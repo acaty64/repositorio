@@ -31,7 +31,7 @@
                         <td>{{$target->user_id}}</td>
                         <td>{{$target->task_id}}</td>
                         <td>{{$target->state}}</td>
-                        <td>{{$target->expiry}}</td>
+                        <td>{{\Carbon\Carbon::createFromTimestamp(strtotime($target->expiry))->format('d-m-Y')}}</td>
                         <td>
                             @can('admin.target.edit')
                                 <a class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $target->id }})">Editar</a>

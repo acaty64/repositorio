@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Target;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -33,13 +34,11 @@ class TargetIndex extends Component
     
     public function render()
     {
-        return view('livewire.targets', [
-            'targets' => Target::where('document_id', $this->document_id)->get(),
-        ]);
-        //'targets' => Target::where('document_id', $this->document_id)->paginate(5, ['*'], 'targetPage'),
-        //'targets' => Target::paginate(5, ['*'], 'targetPage'),
-        //'targets' => Target::where('document_id', $this->document_id)->paginate(5, ['*'], 'targetsPage')
-        //'targets' => Target::all(),
+        $this->targets = Target::where('document_id', $this->document_id)->get();
+        return view('livewire.targets');
+        //return view('livewire.targets', [
+        //    'targets' => $this->targets
+        //]);
     }
 
     public function setStatus($value, $id = null)
@@ -68,7 +67,7 @@ class TargetIndex extends Component
 		$this->user_id = '';
 		$this->task_id = '';
 		$this->state = '';
-		$this->expiry = '';
+		$this->expiry = Carbon::now()->format('Y-m-d');
     }
 
     public function edit()
@@ -78,7 +77,7 @@ class TargetIndex extends Component
 		$this->user_id = $target->user_id;
 		$this->task_id = $target->task_id;
 		$this->state = $target->state;
-		$this->expiry = $target->expiry;
+		$this->expiry = \Carbon\Carbon::createFromTimestamp(strtotime($target->expiry))->format('Y-m-d');
     }
 
     public function destroy()
@@ -88,7 +87,7 @@ class TargetIndex extends Component
 		$this->user_id = $target->user_id;
 		$this->task_id = $target->task_id;
 		$this->state = $target->state;
-		$this->expiry = $target->expiry;
+		$this->expiry = \Carbon\Carbon::createFromTimestamp(strtotime($target->expiry))->format('Y-m-d');
     }
 
     public function save()

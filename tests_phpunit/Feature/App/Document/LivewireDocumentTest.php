@@ -109,6 +109,7 @@ class LivewireDocumentTest extends TestCase
         ->test(DocumentIndex::class)
         ->call('setStatus', 'edit', $document->id)
         ->assertSet('origin', $data['origin'])
+        ->set('date', $newData['date'])
         ->set('origin', $newData['origin'])
         ->set('abstract', $newData['abstract'])
         ->set('office_id', $newData['office_id'])
