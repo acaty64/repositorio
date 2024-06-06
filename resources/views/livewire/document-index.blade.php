@@ -7,7 +7,7 @@
                 </span>
                 <span class="float-right">
                     @can('admin.document.create')
-                    <button class="btn-success btn-lg float-right" wire:click="setStatus('create')">Agregar</button>
+                    <button id= "btn-create" class="btn-success btn-lg float-right" wire:click="setStatus('create')">Agregar</button>
                     @endcan
                 </span>
             </div>
@@ -67,7 +67,7 @@
                         <button class="btn-warning btn-lg" wire:click="setStatus('index')">Regresar</button>
                     </div>
                     <div class="col-sm-3">
-                        <button class="btn-danger btn-lg" wire:click="save">Grabar</button>
+                        <button id="btn-save" class="btn-danger btn-lg" wire:click="save">Grabar</button>
                     </div>
                 </div>
             </div>

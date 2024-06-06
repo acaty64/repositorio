@@ -354,6 +354,7 @@ return [
             'route' => 'admin.document.index',
             'can' => 'admin.document.index',
             'icon' => 'far fa-fw fa-file',
+            'id' => 'document-index'
         ],
     ],
 
