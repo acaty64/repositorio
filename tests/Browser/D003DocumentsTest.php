@@ -47,7 +47,9 @@ class D003DocumentsTest extends DuskTestCase
                 'display' => 'private',
                 'state' => 'pendiente'
             ];
-    dd($data['date']->toformat('dd-mm-YYYY'));
+
+            $fecha = Carbon::now()->format('d/m/Y');
+
             $document = Document::create($data);
             
             $browser->loginAs(User::find(1))
@@ -57,14 +59,15 @@ class D003DocumentsTest extends DuskTestCase
                     ->click("#document-index")
                     ->click("#btn-create")
                     ->waitForText('Nuevo Documento')
-                    ->type('date', $data['date'])
-                    ->type('origin', $data['origin'])
-                    ->type('office_id', $data['office_id'])
-                    ->type('abstract', $data['abstract'])
-                    ->type('filename', $data['filename'])
-                    ->type('link', $data['link'])
-                    ->type('display', $data['display'])
-                    ->type('state', $data['state'])
+                    //->type('input[dusk=date]',$fecha)
+                    ->type('#date',$fecha)
+                    ->type('#origin', $data['origin'])
+                    ->type('#office_id', $data['office_id'])
+                    ->type('#abstract', $data['abstract'])
+                    ->type('#filename', $data['filename'])
+                    ->type('#link', $data['link'])
+                    ->type('#display', $data['display'])
+                    ->type('#state', $data['state'])
                     ->click("#btn-save")
                     ->waitForText('Lista de Documentos')
                     ->assertSee($data['date'])

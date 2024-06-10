@@ -76,7 +76,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Fecha de Documento</span>
-                            <input type="date" wire:model="date" class="form-control">
+                            <input id="date" type="date" wire:model="date" class="form-control">
                             @error('date') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Origen</span>
-                            <input type="text" wire:model="origin" class="form-control">
+                            <input id="origin" type="text" wire:model="origin" class="form-control">
                             @error('origin') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Oficina</span>
-                            <input type="text" wire:model="office_id" class="form-control">
+                            <input id="office_id" type="text" wire:model="office_id" class="form-control">
                             @error('office') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Resumen</span>
-                            <input type="text" wire:model="abstract" class="form-control">
+                            <input id="abstract" type="text" wire:model="abstract" class="form-control">
                             @error('abstract') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Archivo</span>
-                            <input type="text" wire:model="filename" class="form-control">
+                            <input id="filename" type="text" wire:model="filename" class="form-control">
                             @error('filename') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Enlace</span>
-                            <input type="text" wire:model="link" class="form-control">
+                            <input id="link" type="text" wire:model="link" class="form-control">
                             @error('link') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Exposición</span>
-                            <input type="text" wire:model="display" class="form-control">
+                            <input id="display" type="text" wire:model="display" class="form-control">
                             @error('display') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                     <div class="col-sm-12">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Estado</span>
-                            <input type="text" wire:model="state" class="form-control">
+                            <input id="state" type="text" wire:model="state" class="form-control">
                             @error('state') <span class="error">{{ $message }}</span> @enderror
                         </div>
                     </div>
