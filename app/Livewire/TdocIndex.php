@@ -77,14 +77,17 @@ class TdocIndex extends Component
 	    	$tdoc = Tdoc::find($this->tdoc_id);
 			$tdoc->name = $this->name ;
 			$tdoc->save();
-    	}elseif( $this->status == 'create'){
+            session()->flash('message', 'Registro grabado exitosamente. Id: ' . $tdoc->id);
+       	}elseif( $this->status == 'create'){
             $this->validate();
 	    	Tdoc::create([
 				'name' => $this->name ,
 	    	]);
+            session()->flash('message', 'Registro creado exitosamente.');
     	}elseif( $this->status == 'destroy'){
             $tdoc = Tdoc::find($this->tdoc_id);
             $tdoc->delete();
+            session()->flash('message', 'Registro eliminado exitosamente. Id: ' . $this->tdoc_id);
         }
 
     	$this->status = 'index';

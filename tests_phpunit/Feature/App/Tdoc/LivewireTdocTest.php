@@ -40,8 +40,8 @@ class LivewireTdocTest extends TestCase
         Livewire::test(TdocIndex::class)
             ->call('setStatus', 'create')
             ->set('name', $data['name'])
-            ->call('save');
-            // ->assertSeeHtml('Registro grabado.');
+            ->call('save')
+            ->assertSeeHtml('Registro creado exitosamente.');
 
         $this->assertDatabaseHas('tdocs', $data);
 
@@ -72,7 +72,8 @@ class LivewireTdocTest extends TestCase
             ->test(TdocIndex::class)
             ->call('setStatus', 'edit', $tdoc->id)
             ->set('name', $newData['name'])
-            ->call('save');
+            ->call('save')
+            ->assertSeeHtml('Registro grabado exitosamente.');
 
         $this->assertDatabaseHas('tdocs', $newData);
         $this->assertDatabaseMissing('tdocs', $data);
@@ -89,8 +90,8 @@ class LivewireTdocTest extends TestCase
             ->call('setStatus', 'destroy', $tdoc->id)
             ->assertSet('tdoc_id', $tdoc->id)
             ->assertSeeHtml('Tipo de documento a Eliminar')
-            ->call('save');
-            // ->assertSeeHtml('Registro grabado.');
+            ->call('save')
+            ->assertSeeHtml('Registro eliminado exitosamente.');
 
         $this->assertDatabaseMissing('tdocs', $tdoc->toArray());
 
