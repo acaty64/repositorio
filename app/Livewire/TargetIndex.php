@@ -35,7 +35,7 @@ class TargetIndex extends Component
     public function render()
     {
         $this->targets = Target::where('document_id', $this->document_id)->get();
-        return view('livewire.targets');
+        return view('livewire.target-index');
         //return view('livewire.targets', [
         //    'targets' => $this->targets
         //]);
