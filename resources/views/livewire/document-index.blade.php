@@ -1,4 +1,11 @@
 <div>
+    <div>
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
     @if( $status == 'index')
         <div class="row">
             <div class="col">

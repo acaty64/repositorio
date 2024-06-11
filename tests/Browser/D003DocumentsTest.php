@@ -59,7 +59,6 @@ class D003DocumentsTest extends DuskTestCase
                     ->click("#document-index")
                     ->click("#btn-create")
                     ->waitForText('Nuevo Documento')
-                    //->type('input[dusk=date]',$fecha)
                     ->type('#date',$fecha)
                     ->type('#origin', $data['origin'])
                     ->type('#office_id', $data['office_id'])
@@ -76,6 +75,7 @@ class D003DocumentsTest extends DuskTestCase
                     ->assertSee($data['abstract'])
                     ->assertSee($data['display'])
                     ->assertSee($data['state'])
+                    ->assertSee('Registro creado exitosamente.')
                     ;
         });
     }

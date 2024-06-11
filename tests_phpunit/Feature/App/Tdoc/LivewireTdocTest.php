@@ -73,7 +73,7 @@ class LivewireTdocTest extends TestCase
             ->call('setStatus', 'edit', $tdoc->id)
             ->set('name', $newData['name'])
             ->call('save')
-            ->assertSeeHtml('Registro grabado exitosamente.');
+            ->assertSeeHtml('Registro actualizado exitosamente.');
 
         $this->assertDatabaseHas('tdocs', $newData);
         $this->assertDatabaseMissing('tdocs', $data);

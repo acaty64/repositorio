@@ -62,8 +62,8 @@ class LivewireDocumentTest extends TestCase
             ->set('link', $data['link'])
             ->set('display', $data['display'])
             ->set('state', $data['state'])
-            ->call('save');
-        // ->assertSeeHtml('Registro grabado.');
+            ->call('save')
+            ->assertSeeHtml('Registro creado exitosamente.');
         
         $this->assertDatabaseHas('documents', $data);
         
@@ -114,7 +114,8 @@ class LivewireDocumentTest extends TestCase
         ->set('abstract', $newData['abstract'])
         ->set('office_id', $newData['office_id'])
         ->set('filename', $newData['filename'])
-        ->call('save');
+        ->call('save')
+        ->assertSeeHtml('Registro actualizado exitosamente.');
         
         $this->assertDatabaseHas('documents', $newData);
         $this->assertDatabaseMissing('documents', $data);
@@ -145,8 +146,8 @@ class LivewireDocumentTest extends TestCase
         ->call('setStatus', 'destroy', $document->id)
         ->assertSet('document_id', $document->id)
         ->assertSeeHtml('Documento a Eliminar')
-        ->call('save');
-        // ->assertSeeHtml('Registro grabado.');
+        ->call('save')
+        ->assertSeeHtml('Registro eliminado exitosamente.');
         
         $this->assertDatabaseMissing('documents', $document->toArray());
         

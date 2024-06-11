@@ -119,6 +119,7 @@ class DocumentIndex extends Component
 			$document->display = $this->display ;
 			$document->state = $this->state ;
 			$document->save();
+			session()->flash('message', 'Registro actualizado exitosamente. Id: ' . $document->id);
     	}elseif( $this->status == 'create'){
             $this->validate();
 	    	Document::create([
@@ -131,9 +132,11 @@ class DocumentIndex extends Component
 				'display' => $this->display ,
 				'state' => $this->state ,
 	    	]);
+			session()->flash('message', 'Registro creado exitosamente.');
     	}elseif( $this->status == 'destroy'){
             $document = Document::find($this->document_id);
             $document->delete();
+			session()->flash('message', 'Registro eliminado exitosamente. Id: ' . $document->id);
         }
 
     	$this->status = 'index';

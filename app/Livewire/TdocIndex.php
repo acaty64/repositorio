@@ -77,7 +77,7 @@ class TdocIndex extends Component
 	    	$tdoc = Tdoc::find($this->tdoc_id);
 			$tdoc->name = $this->name ;
 			$tdoc->save();
-            session()->flash('message', 'Registro grabado exitosamente. Id: ' . $tdoc->id);
+            session()->flash('message', 'Registro actualizado exitosamente. Id: ' . $tdoc->id);
        	}elseif( $this->status == 'create'){
             $this->validate();
 	    	Tdoc::create([
