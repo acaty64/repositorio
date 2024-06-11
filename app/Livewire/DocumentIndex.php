@@ -28,7 +28,7 @@ class DocumentIndex extends Component
     public function render()
     {
         return view('livewire.document-index', [
-            'documents' => Document::paginate(5)
+            'documents' => Document::orderBy('id', 'DESC')->paginate(5)
         ]);
     }
 

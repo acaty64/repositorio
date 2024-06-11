@@ -47,10 +47,10 @@
                         <td>{{$document->state}}</td>
                         <td>
                             @can('admin.document.edit')
-                            <a class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $document->id }})">Editar</a>
+                            <a id="btnEdit{{ $document->id }}" class='btn btn-primary me-md-2' wire:click="setStatus('edit', {{ $document->id }})">Editar</a>
                             @endcan
                             @can('admin.document.destroy')
-                            <a class='btn btn-danger' wire:click="setStatus('destroy', {{ $document->id }})">Borrar</a>
+                            <a id="btnDestroy{{ $document->id }}" class='btn btn-danger' wire:click="setStatus('destroy', {{ $document->id }})">Borrar</a>
                             @endcan
                         </td>
                     </tr> 
