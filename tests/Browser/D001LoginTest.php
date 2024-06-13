@@ -12,6 +12,9 @@ class D001LoginTest extends DuskTestCase
 
     public function test_registered_users_can_login(): void
     {
+        $this->artisan('config:clear');
+        $this->artisan('view:clear');
+
         $this->browse(function (Browser $browser) {
             $browser->visit('/login')
                     ->type('email', 'master@example.com')

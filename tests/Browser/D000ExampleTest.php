@@ -14,6 +14,9 @@ class D000ExampleTest extends DuskTestCase
      */
     public function testBasicExample(): void
     {
+        $this->artisan('config:clear');
+        $this->artisan('view:clear');
+
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                     ->assertSee('Password');

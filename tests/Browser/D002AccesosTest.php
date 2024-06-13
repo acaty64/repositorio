@@ -13,6 +13,9 @@ class D002AccesosTest extends DuskTestCase
 
     public function test_master_user_can_see_access_options(): void
     {
+        $this->artisan('config:clear');
+        $this->artisan('view:clear');
+
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
                     ->visit('/dashboard')
@@ -32,6 +35,9 @@ class D002AccesosTest extends DuskTestCase
     
     public function test_master_user_can_see_users_index(): void
     {
+        $this->artisan('config:clear');
+        $this->artisan('view:clear');
+
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
             ->visit('/dashboard')
