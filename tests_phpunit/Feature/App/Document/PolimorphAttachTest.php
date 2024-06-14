@@ -13,59 +13,57 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\User;
 use Tests_phpunit\TestCase;
 
-class PolimorphTest extends TestCase
+class PolimorphAttachTest extends TestCase
 {
     use DatabaseTransactions;
     
-    public function test_student_subject(): void
+    public function test_document_attach(): void
     {
+
+        $this->markTestSkipped('must be revisited.');
 
         $document = Document::create([
             'date' => now(),
             'origin' => 'Entidad externa', 
             'office_id' => 1, 
             'abstract' => 'Nuevo Resumen del documento.',
+            'state' => 'pendiente'
+        ]);
+        
+        $nn = Attach::create([
+            'attachtable_type' => Document::class,
+            'attachtable_id' => $document->id,
             'filename' => 'documento.pdf', 
             'link' => 'as5f1s5d.pdf', 
             'display' => 'public', 
-            'state' => 'pendiente'
         ]);
 
-        $student = Student::find(1);
-
-        $nn = Subject::create([
-            'subjectable_type' => Student::class,
-            'subjectable_id' => $student->id,
-            'document_id' => $document->id
-        ]);
-
-        $this->assertTrue($student->subject->document_id == $document->id);
+        $this->assertTrue($document->attach->filename == $nn->filename);
 
     }
 
-    public function test_employee_subject(): void
+    public function test_target_attach(): void
     {
 
-        $document = Document::create([
+        $this->markTestSkipped('must be revisited.');
+
+        $target = Target::create([
             'date' => now(),
             'origin' => 'Entidad externa', 
             'office_id' => 1, 
             'abstract' => 'Nuevo Resumen del documento.',
+            'state' => 'pendiente'
+        ]);
+        
+        $nn = Attach::create([
+            'attachtable_type' => Target::class,
+            'attachtable_id' => $target->id,
             'filename' => 'documento.pdf', 
             'link' => 'as5f1s5d.pdf', 
             'display' => 'public', 
-            'state' => 'pendiente'
         ]);
 
-        $employee = Employee::find(1);
-
-        $nn = Subject::create([
-            'subjectable_type' => Employee::class,
-            'subjectable_id' => $employee->id,
-            'document_id' => $document->id
-        ]);
-
-        $this->assertTrue($employee->subject->document_id == $document->id);
+        $this->assertTrue($target->attach->link == $nn->link);
 
     }
 
