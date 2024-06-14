@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\Employee;
 use App\Models\Student;
 use App\Models\Subject;
+use App\Models\Target;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\User;
