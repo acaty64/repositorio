@@ -11,12 +11,11 @@ use Tests\DuskTestCase;
 
 class D003DocumentsTest extends DuskTestCase
 {
-    //use DatabaseTransactions;
+    use DatabaseTransactions;
 
     public function test_master_user_can_see_documents_index(): void
     {
-        $this->artisan('config:clear');
-        $this->artisan('view:clear');
+        $this->artisan('optimize');
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
@@ -33,12 +32,13 @@ class D003DocumentsTest extends DuskTestCase
                     ->assertSee('Exposición')
                     ->assertSee('Estado')
                     ;
-        });
-    }
-
+                });
+            }
+            
     public function test_master_user_can_add_a_document(): void
     {
-      
+        $this->artisan('optimize');
+                
         $this->browse(function (Browser $browser) {
             $data = [
                 'date' => Carbon::now(),
@@ -79,7 +79,6 @@ class D003DocumentsTest extends DuskTestCase
                     ->assertSee('Registro creado exitosamente.')
                     ;
         });
-        $this->artisan('config:clear');
-        $this->artisan('view:clear');
     }
+    
 }
