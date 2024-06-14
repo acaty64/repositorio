@@ -12,12 +12,14 @@ use Tests\DuskTestCase;
 class D004DocumentsTest extends DuskTestCase
 {
     use DatabaseTransactions;
-
+    
+    //$this->markTestSkipped('must be revisited.');
+    //$browser->dump();
     public function test_it_can_be_see_a_save_document_registry()
     {
-        $this->artisan('config:clear');
-        $this->artisan('view:clear');
-
+        
+        $this->artisan('optimize');
+        
         $this->browse(function (Browser $browser) { 
             
             $q_old = Document::count();
@@ -32,11 +34,10 @@ class D004DocumentsTest extends DuskTestCase
                 'display' => 'private',
                 'state' => 'pendiente'
             ];
-                
+            
             $document = Document::create($old_data);
-
-            //$browser->dump($document->id);
-
+            
+            
             $q_new = Document::count();
             
             $this->assertTrue($q_new == $q_old + 1);
@@ -47,7 +48,7 @@ class D004DocumentsTest extends DuskTestCase
             $this->artisan('view:clear');
             
             $browser->loginAs(User::find(1))
-                ->visit('/dashboard')
+            ->visit('/dashboard')
                 ->assertSee('Documentos')
                 ->visit("/admin/document")
                 ->click("#document-index")
@@ -55,21 +56,23 @@ class D004DocumentsTest extends DuskTestCase
                 ->assertSee('Lista de Documentos')
                 ;
                 //->dump();
-            $browser->assertSee($id)
+                $browser->assertSee($id)
                 ->assertSee($old_data['date'])
                 ->assertSee($old_data['origin'])
                 ->assertSee($old_data['office_id'])
                 ->assertSee($old_data['abstract'])
                 ->assertSee($old_data['display'])
                 ->assertSee($old_data['state'])  
-            ;
-        });
+                ;
+            });
         $this->artisan('config:clear');
         $this->artisan('view:clear');
     }
-
+    
     public function test_master_user_can_edit_a_document(): void
     {
+        
+        $this->artisan('optimize');
 
         $this->browse(function (Browser $browser) {
             $old_data = [

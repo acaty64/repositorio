@@ -11,7 +11,7 @@ use Tests\DuskTestCase;
 
 class D003DocumentsTest extends DuskTestCase
 {
-    use DatabaseTransactions;
+    //use DatabaseTransactions;
 
     public function test_master_user_can_see_documents_index(): void
     {
@@ -42,7 +42,7 @@ class D003DocumentsTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $data = [
                 'date' => Carbon::now(),
-                'origin' => 'Institucion externa',
+                'origin' => 'Institucion externa D003',
                 'office_id' => 1,
                 'abstract' => 'Resumen del documento de hoy',
                 'filename' => 'archivo.pdf',
