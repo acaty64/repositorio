@@ -4,6 +4,7 @@ namespace Tests_phpunit\Feature\App\Document;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use App\Models\Attach;
 use App\Models\Document;
 use App\Models\Employee;
 use App\Models\Student;
@@ -21,8 +22,6 @@ class PolimorphAttachTest extends TestCase
     public function test_document_attach(): void
     {
 
-        $this->markTestSkipped('must be revisited.');
-
         $document = Document::create([
             'date' => now(),
             'origin' => 'Entidad externa', 
@@ -32,39 +31,48 @@ class PolimorphAttachTest extends TestCase
         ]);
         
         $nn = Attach::create([
-            'attachtable_type' => Document::class,
-            'attachtable_id' => $document->id,
+            'attachable_type' => Document::class,
+            'attachable_id' => $document->id,
             'filename' => 'documento.pdf', 
             'link' => 'as5f1s5d.pdf', 
             'display' => 'public', 
         ]);
 
-        $this->assertTrue($document->attach->filename == $nn->filename);
+        $this->assertTrue($document->attach[0]->filename == $nn->filename);
 
     }
 
     public function test_target_attach(): void
     {
 
-        $this->markTestSkipped('must be revisited.');
+        // $this->markTestSkipped('must be revisited.');
 
-        $target = Target::create([
-            'date' => now(),
-            'origin' => 'Entidad externa', 
+        $data_target = [
             'office_id' => 1, 
-            'abstract' => 'Nuevo Resumen del documento.',
-            'state' => 'pendiente'
-        ]);
+            'state' => 'pendiente',
+            'document_id' => 1, 
+            'user_id' => 1, 
+            'task_id' => 1, 
+            'expiry' => now(),
+        ];
+
+        $target = Target::create($data_target);
+
+        $this->assertDatabaseHas('targets', $data_target);
         
-        $nn = Attach::create([
-            'attachtable_type' => Target::class,
-            'attachtable_id' => $target->id,
+        $data_attach = [
+            'attachable_type' => Target::class,
+            'attachable_id' => $target->id,
             'filename' => 'documento.pdf', 
             'link' => 'as5f1s5d.pdf', 
             'display' => 'public', 
-        ]);
+        ];
 
-        $this->assertTrue($target->attach->link == $nn->link);
+        $attach = Attach::create($data_attach);
+
+        $this->assertDatabaseHas('attaches', $data_attach);
+        
+        $this->assertTrue($target->attach[0]->link == $attach->link);
 
     }
 

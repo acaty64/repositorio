@@ -6,6 +6,7 @@
             </div>
         @endif
     </div>
+    <div>Attach: {{ $attach }}</div>
     @if( $status == 'index')
         <div class="row">
             <div class="col">

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Attach;
 use App\Models\Document;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -22,6 +23,7 @@ class DocumentIndex extends Component
     public $display;
     public $document_id;
     public $state;
+    public $attach;
     
     public $status;
 
@@ -81,28 +83,33 @@ class DocumentIndex extends Component
     {
     	$document = Document::find($this->document_id);
 		$this->id = $document->id;
-		$this->date = \Carbon\Carbon::createFromTimestamp(strtotime($document->date))->format('Y-m-d');
+		$this->date = Carbon::createFromTimestamp(strtotime($document->date))->format('Y-m-d');
 		$this->origin = $document->origin;
 		$this->office_id = $document->office_id;
 		$this->abstract = $document->abstract;
-		$this->filename = $document->filename;
-		$this->link = $document->link;
-		$this->display = $document->display;
 		$this->state = $document->state;
-    }
+		$this->attach = $document->attach;
+		$this->filename = $document->attach[0]->filename;
+		$this->link = $document->attach[0]->link;
+		$this->display = $document->attach[0]->display;
+
+	}
 
     public function destroy()
     {
     	$document = Document::find($this->document_id);
-		$this->date = \Carbon\Carbon::createFromTimestamp(strtotime($document->date))->format('Y-m-d');
+		$this->date = Carbon::createFromTimestamp(strtotime($document->date))->format('Y-m-d');
 		$this->origin = $document->origin;
 		$this->office_id = $document->office_id;
 		$this->abstract = $document->abstract;
+		$this->state = $document->state;
+		$this->attach = $document->attach;
+		/*
 		$this->filename = $document->filename;
 		$this->link = $document->link;
 		$this->display = $document->display;
-		$this->state = $document->state;
-    }
+		*/
+	}
 
     public function save()
     {
@@ -114,30 +121,47 @@ class DocumentIndex extends Component
 			$document->origin = $this->origin ;
 			$document->office_id = $this->office_id ;
 			$document->abstract = $this->abstract ;
-			$document->filename = $this->filename ;
-			$document->link = $this->link ;
-			$document->display = $this->display ;
 			$document->state = $this->state ;
 			$document->save();
+
+			$attach = $document->attach ;
+$this->attach= $attach ;
+			$attach->filename = $this->filename ;
+			$attach->link = $this->link ;
+			$attach->display = $this->display ;
+			$attach->save();
+
 			session()->flash('message', 'Registro actualizado exitosamente. Id: ' . $document->id);
-    	}elseif( $this->status == 'create'){
-            $this->validate();
-	    	Document::create([
+    	
+		}elseif( $this->status == 'create'){
+            
+			$this->validate();
+
+	    	$document = Document::create([
 				'date' => $this->date ,
 				'origin' => $this->origin ,
 				'office_id' => $this->office_id ,
 				'abstract' => $this->abstract ,
+				'state' => $this->state ,
+				]);
+			
+			Attach::create([
+				'attachable_id' => $document->id ,
+				'attachable_type' => Document::class ,
 				'filename' => $this->filename ,
 				'link' => $this->link ,
 				'display' => $this->display ,
-				'state' => $this->state ,
-	    	]);
+			]) ;
+
 			session()->flash('message', 'Registro creado exitosamente.');
+
     	}elseif( $this->status == 'destroy'){
-            $document = Document::find($this->document_id);
+            
+			$document = Document::find($this->document_id);
             $document->delete();
 			session()->flash('message', 'Registro eliminado exitosamente. Id: ' . $document->id);
-        }
+        
+		}
 
     	$this->status = 'index';
         $this->render();

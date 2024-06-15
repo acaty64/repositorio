@@ -74,7 +74,6 @@ class D003DocumentsTest extends DuskTestCase
                     ->assertSee($data['origin'])
                     ->assertSee($data['office_id'])
                     ->assertSee($data['abstract'])
-                    ->assertSee($data['display'])
                     ->assertSee($data['state'])
                     ->assertSee('Registro creado exitosamente.')
                     ;

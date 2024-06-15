@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class Attach extends Model
 {
     use HasFactory;
-    protected $fillable = ['attachable_type', 'attachable_id', 'filename', 'path', 'display'];
+    protected $fillable = ['attachable_type', 'attachable_id', 'filename', 'link', 'display'];
 
     public function attachable(): MorphTo
     {
