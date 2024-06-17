@@ -78,16 +78,16 @@ class LivewireDocumentTest extends TestCase
     public function test_master_can_update_document_without_target_registry()
     {
         
-        $this->markTestSkipped('must be revisited.');
+        //$this->markTestSkipped('must be revisited.');
 
         $master = User::find(1);
         $this->actingAs($master);
         
         $data = [
             'date' => Carbon::now(),
-            'origin' => 'Institucion externa',
+            'origin' => 'Institucion externa 1',
             'office_id' => 1,
-            'abstract' => 'Resumen del documento',
+            'abstract' => 'Resumen del documento 1',
             'state' => 'pendiente'
         ];
 
@@ -107,6 +107,7 @@ class LivewireDocumentTest extends TestCase
         $this->assertDatabaseHas('attaches', $data_attach);
         
         $newData = [
+            'id' => $document->id,
             'date' => Carbon::now(),
             'origin' => 'Nueva Institucion externa',
             'office_id' => 2,
@@ -130,13 +131,18 @@ class LivewireDocumentTest extends TestCase
         ->test(DocumentIndex::class)
         ->call('setStatus', 'edit', $document->id)
         ->assertSet('origin', $data['origin'])
+        ->assertSet('office_id', $data['office_id'])
+        ->assertSet('abstract', $data['abstract'])
         ->set('date', $newData['date'])
         ->set('origin', $newData['origin'])
         ->set('abstract', $newData['abstract'])
         ->set('office_id', $newData['office_id'])
         ->set('filename', $newData_attach['filename'])
+        ->set('link', $newData_attach['link'])
+        ->set('display', $newData_attach['display'])
         ->call('save')
-        ->assertSeeHtml('Registro actualizado exitosamente.');
+        ->assertSeeHtml('Registro actualizado exitosamente. Id: ' . $document->id)
+        ->assertSeeHtml('Lista de Documentos');
         
         $this->assertDatabaseHas('documents', $newData);
         $this->assertDatabaseHas('attaches', $newData_attach);
@@ -147,7 +153,7 @@ class LivewireDocumentTest extends TestCase
     
     public function test_master_can_destroy_a_document_without_target_registry()
     {
-        $this->markTestSkipped('must be revisited.');
+        //$this->markTestSkipped('must be revisited.');
         
         $master = User::find(1);
         $this->actingAs($master);
@@ -157,23 +163,33 @@ class LivewireDocumentTest extends TestCase
             'origin' => 'Institucion externa',
             'office_id' => 1,
             'abstract' => 'Resumen del documento.',
+            'state' => 'pendiente'
+        ];
+
+        $document = Document::create($data);
+
+        $data_attach = [
+            'attachable_id' => $document->id,
+            'attachable_type' => Document::class,
             'filename' => 'archivo.pdf',
             'link' => 'ruta_archivo_servidor',
             'display' => 'private',
-            'state' => 'pendiente'
         ];
         
-        $document = Document::create($data);
-        $this->assertDatabaseHas('documents', $data);        
+        $attach = Attach::create($data_attach);
+
+        $this->assertDatabaseHas('documents', $data);
+        $this->assertDatabaseHas('attaches', $data_attach);    
         
         Livewire::test(DocumentIndex::class)
         ->call('setStatus', 'destroy', $document->id)
         ->assertSet('document_id', $document->id)
         ->assertSeeHtml('Documento a Eliminar')
         ->call('save')
-        ->assertSeeHtml('Registro eliminado exitosamente.');
+        ->assertSeeHtml('Registro eliminado exitosamente. Id: ' . $document->id);
         
         $this->assertDatabaseMissing('documents', $document->toArray());
+        $this->assertDatabaseMissing('attaches', $attach->toArray());
         
     }
     

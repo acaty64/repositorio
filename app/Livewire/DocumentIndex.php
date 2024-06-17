@@ -37,10 +37,10 @@ class DocumentIndex extends Component
     protected $rules = [
         'date' => 'required',
         'office_id' => 'required',
+        'state' => 'required',
         'filename' => 'required',
         'link' => 'required',
         'display' => 'required',
-        'state' => 'required',
     ];
 
     public function mount()
@@ -124,13 +124,14 @@ class DocumentIndex extends Component
 			$document->state = $this->state ;
 			$document->save();
 
-			$attach = $document->attach ;
-$this->attach= $attach ;
+			$attach = $document->attach[0] ;
+			$attach->attachable_id = $document->id ;
+			$attach->attachable_type = Document::class ;
 			$attach->filename = $this->filename ;
 			$attach->link = $this->link ;
 			$attach->display = $this->display ;
 			$attach->save();
-
+			
 			session()->flash('message', 'Registro actualizado exitosamente. Id: ' . $document->id);
     	
 		}elseif( $this->status == 'create'){
@@ -158,6 +159,10 @@ $this->attach= $attach ;
     	}elseif( $this->status == 'destroy'){
             
 			$document = Document::find($this->document_id);
+			$attaches = $document->attach;
+			foreach($attaches as $attach){
+				$attach->delete();
+			};
             $document->delete();
 			session()->flash('message', 'Registro eliminado exitosamente. Id: ' . $document->id);
         
