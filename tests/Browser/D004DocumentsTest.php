@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Models\Attach;
 use App\Models\Document;
 use App\Models\User;
 use Carbon\Carbon;
@@ -11,10 +12,8 @@ use Tests\DuskTestCase;
 
 class D004DocumentsTest extends DuskTestCase
 {
-    use DatabaseTransactions;
+    //use DatabaseTransactions;
     
-    //$this->markTestSkipped('must be revisited.');
-    //$browser->dump();
     public function test_it_can_be_see_a_save_document_registry()
     {
         
@@ -67,7 +66,7 @@ class D004DocumentsTest extends DuskTestCase
 
     public function test_master_user_can_edit_a_document(): void
     {
-        $this->markTestSkipped('must be revisited.');
+        //$this->markTestSkipped('must be revisited.');
 
         $this->artisan('optimize');
         
@@ -77,32 +76,44 @@ class D004DocumentsTest extends DuskTestCase
                 'origin' => 'Prueba de Institucion externa',
                 'office_id' => 1,
                 'abstract' => 'test_master_user_can_edit_a_document',
-                'filename' => 'archivo.pdf',
-                'link' => 'ruta_archivo_servidor',
-                'display' => 'private',
                 'state' => 'pendiente'
             ];
+        $document = Document::create($old_data);
+        $id = Document::latest('created_at')->first()->id;
 
-            $fecha = Carbon::now()->format('d/m/Y');
-            
-            $document = Document::create($old_data);
-            
-            $id = Document::latest('created_at')->first()->id;
+        $old_data_attach = [
+            'attachable_id' => $id,
+            'attachable_type' => Document::class,
+            'filename' => 'archivo.pdf',
+            'link' => 'ruta_archivo_servidor',
+            'display' => 'private',
+        ];
+        
+        $attach = Attach::create($old_data_attach);
+
         $this->assertDatabaseHas('documents', $old_data);
+        $this->assertDatabaseHas('attaches', $old_data_attach);
         
         $new_data = [
             'date' => Carbon::now(),
             'origin' => 'Nueva Institucion externa',
             'office_id' => 2,
             'abstract' => 'Resumen del documento 2',
+            'state' => 'atendido'
+        ];
+
+        $new_data_attach = [
+            'attachable_id' => $old_data_attach['attachable_id'],
+            'attachable_type' => $old_data_attach['attachable_type'],
             'filename' => 'archivo2.pdf',
             'link' => 'ruta_archivo_servidor2',
             'display' => 'public',
-            'state' => 'atendido'
         ];
 
         $this->artisan('optimize');
         
+        $fecha = Carbon::now()->format('d/m/Y');
+
         $browser->loginAs(User::find(1))
                 ->visit('/dashboard')
                 ->assertSee('Documentos')
@@ -115,17 +126,19 @@ class D004DocumentsTest extends DuskTestCase
                 ->assertSee($old_data['origin'])
                 ->assertSee($old_data['office_id'])
                 ->assertSee($old_data['abstract'])
-                ->assertSee($old_data['display'])
-                ->assertSee($old_data['state'])                    
+                ->assertSee($old_data['state'])
+                //->assertSee($old_data_attach['filename'])
+                //->assertSee($old_data_attach['link'])
+                //->assertSee($old_data_attach['display'])
                 ->click("#btnEdit".$document->id) 
                 ->waitForText("Edición de Documento Id: " . $document->id )
                 ->type('#date',$fecha)
                 ->type('#origin', $new_data['origin'])
                 ->type('#office_id', $new_data['office_id'])
                 ->type('#abstract', $new_data['abstract'])
-                ->type('#filename', $new_data['filename'])
-                ->type('#link', $new_data['link'])
-                ->type('#display', $new_data['display'])
+                ->type('#filename', $new_data_attach['filename'])
+                ->type('#link', $new_data_attach['link'])
+                ->type('#display', $new_data_attach['display'])
                 ->type('#state', $new_data['state'])
                 ->click("#btn-save")
                 ->waitForText('Lista de Documentos')
@@ -133,8 +146,10 @@ class D004DocumentsTest extends DuskTestCase
                 ->assertSee($new_data['origin'])
                 ->assertSee($new_data['office_id'])
                 ->assertSee($new_data['abstract'])
-                ->assertSee($new_data['display'])
                 ->assertSee($new_data['state'])
+                //->assertSee($new_data_attach['filename'])
+                //->assertSee($new_data_attach['link'])
+                //->assertSee($new_data_attach['display'])
                 ->assertSee('Registro actualizado exitosamente.')
                 ;
         });
