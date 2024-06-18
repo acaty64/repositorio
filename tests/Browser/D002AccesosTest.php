@@ -3,18 +3,21 @@
 namespace Tests\Browser;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class D002AccesosTest extends DuskTestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
+    //use DatabaseTransactions;
 
     public function test_master_user_can_see_access_options(): void
     {
         $this->artisan('config:clear');
         $this->artisan('view:clear');
+        $this->artisan('db:seed');
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
@@ -37,6 +40,7 @@ class D002AccesosTest extends DuskTestCase
     {
         $this->artisan('config:clear');
         $this->artisan('view:clear');
+        $this->artisan('db:seed');
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))

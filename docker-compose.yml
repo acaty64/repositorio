@@ -94,6 +94,8 @@ services:
             - sail
     selenium:
         image: selenium/standalone-chrome
+        environment:
+            - LANGUAGE=en_GB.UTF-8
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         volumes:

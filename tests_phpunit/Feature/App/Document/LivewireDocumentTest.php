@@ -84,7 +84,7 @@ class LivewireDocumentTest extends TestCase
         $this->actingAs($master);
         
         $data = [
-            'date' => Carbon::now(),
+            'date' => Carbon::yesterday(),
             'origin' => 'Institucion externa 1',
             'office_id' => 1,
             'abstract' => 'Resumen del documento 1',

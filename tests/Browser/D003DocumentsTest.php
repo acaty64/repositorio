@@ -5,17 +5,20 @@ namespace Tests\Browser;
 use App\Models\Document;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class D003DocumentsTest extends DuskTestCase
 {
-    use DatabaseTransactions;
+    //use DatabaseTransactions;
+    use DatabaseMigrations;
 
     public function test_master_user_can_see_documents_index(): void
     {
         $this->artisan('optimize');
+        $this->artisan('db:seed');
 
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
@@ -38,6 +41,7 @@ class D003DocumentsTest extends DuskTestCase
     public function test_master_user_can_add_a_document(): void
     {
         $this->artisan('optimize');
+        $this->artisan('db:seed');
                 
         $this->browse(function (Browser $browser) {
             $data = [
