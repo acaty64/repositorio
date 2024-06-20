@@ -1,0 +1,14 @@
+TDD
+
+PHPUNIT
+    Database = mysql = testing
+    Ejecutar:
+        > php artisan migrate:fresh --seed --database=testing
+        > php artisan optimize:clear
+        > test
+
+DUSK
+    Database = sqlite = database.sqlite
+        > php artisan optimize:clear
+        > dusk
+

@@ -1,5 +1,4 @@
 <div class="row">
-    
     <div class="col col-3">
         <div
             class="flex h-screen justify-center items-center"
@@ -29,7 +28,16 @@
         @if($uploaded_files)
         <div>
             @foreach ($uploaded_files as $item)
-                {{ $item }}
+                <div class="col col-3">
+                    <li>{{ $item[0] }}</li>
+                </div>
+                <div class="col col-3">
+                    <!--a target="_blank" href="{{asset($item[1])}}">Ver PDF</a-->
+                    <!--a target="_blank" href="{{ $item[1] }}">Ver PDF</a-->
+                    <iframe :src="{{ $item[1] }}" style="width: 100%; height:50vw; position: relative; allowfullscreen;"></iframe>
+                </div>
+                <!--li>{{ $item[1] }}</li-->
+                <!--li>{{ $item[2] }}</li-->
             @endforeach
         </div>
         @endif

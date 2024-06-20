@@ -2,5 +2,25 @@ readme.uploads
 
 https://f24aalam.medium.com/laravel-livewire-drag-n-drop-files-upload-using-alpinejs-37d5b80d3eb9
 
+************************************************************
+
 https://fly.io/laravel-bytes/multi-file-upload-livewire/
 
+Concurrent, Chunked, Multi-File Uploads with Livewire
+
+************************************************************
+*/* Error Disk [tmp-for-tests] does not have a configured 
+    config/filesystems.php
+
+    ** Agregar
+
+    'disks' => [
+
+        'tmp-for-tests' => [
+            'driver' => 'local',
+            'root' => storage_path('app/livewire-tmp'),
+        ],
+
+
+********************************** NO HACER THUMBNAIL
+https://laracasts.com/discuss/channels/laravel/laravel-sail-imagick-security-policy
