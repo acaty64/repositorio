@@ -1,0 +1,21 @@
+readme.test
+
+Antes de ejecutar ./vendor/bin/sail test
+
+> ./vendor/bin/sail artisan optimize:clear 
+
+**********************************************
+
+Para ejecutar ./vendor/bin/sail dusk
+
+Reemplazar .env con .env.dusk
+> ./vendor/bin/sail artisan migrate:fresh --seed
+
+Undo .env
+
+**********************************************
+
+Agregar en docker-compose.yml
+    selenium:
+        image: selenium/standalone-chrome
+

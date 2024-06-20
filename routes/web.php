@@ -12,6 +12,10 @@ Route::get('/', function () {
     return redirect(route('login'));
 });
 
+Route::get('/tests', function () {
+    return view('testing');
+});
+
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware('auth');
 
 require __DIR__.'/auth.php';
