@@ -21,6 +21,10 @@ Concurrent, Chunked, Multi-File Uploads with Livewire
             'root' => storage_path('app/livewire-tmp'),
         ],
 
+************************************************************
+Crear el enlace de public/storage a storage/app/public
+
+php artisan storage:link
 
 ********************************** NO HACER THUMBNAIL
 https://laracasts.com/discuss/channels/laravel/laravel-sail-imagick-security-policy
