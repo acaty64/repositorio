@@ -14,21 +14,39 @@ class TestsIndex extends Component
     public $files = [];
     public $uploaded_files = [];
     public $message;
+
+    public $q_files = 0;
+
     public function render()
     {
         return view('livewire.tests-index');
     }
 
+    public function close($key)
+    {
+
+        $filename = $this->uploaded_files[$key][0];
+
+        $this->message = 'Eliminando archivo: ' . $filename;
+        
+        unset($this->uploaded_files[$key]);
+
+        $this->q_files--;
+
+        $this->message = 'Archivo Eliminado: ' . $filename;
+    
+    }
     public function updatedFiles()
     {
         foreach ($this->files as $value) {
+            $this->q_files++;
             $filename = $value->getClientOriginalName();
             $path_tmp = '/livewire/preview-file/';
             $start = strpos($value->temporaryUrl(), $path_tmp) + strlen($path_tmp);
             $lenght = strpos($value->temporaryUrl(),'?') - $start;
             $tmp_file0 = substr($value->temporaryUrl(), $start, $lenght);
             $tmp_file_in = storage_path('app/livewire-tmp/' . $tmp_file0);
-            $new_name = 'storage/' . $tmp_file0 . ".pdf";
+            $new_name = 'storage/' . $tmp_file0;
             rename($tmp_file_in, $new_name);
             $this->uploaded_files[] = [$filename, $new_name, $tmp_file_in ];
         }

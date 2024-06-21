@@ -1,4 +1,5 @@
 <div>
+    <div>{{ $message }}</div>
     <div class="row">
         <div class="col-3">
             <div
@@ -25,16 +26,28 @@
                 </div>
             </div>
         </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-sm btn-primary">
+                Archivos seleccionados <span class="badge text-bg-secondary">{{ $q_files }}</span>
+            </button>
+        </div>
     </div>
     @if($uploaded_files)
     <div class="row">    
-        @foreach ($uploaded_files as $item)
+        @foreach ($uploaded_files as $key => $item)
             <div class="col-6">
                 <div class="row mt-3">
-                    <span>{{ $item[0] }}</span>
+                    <div class="col-11">
+                        <span>{{ $item[0] }}</span>
+                    </div>
+                    <div class="col-1">
+                        <div class="text-end"><button wire:click="close({{$key}})" type="button" class="btn btn-sm btn-danger">X</button></div>
+                    </div>
                 </div>
                 <div class="row">
-                    <iframe src="{{ asset($item[1]) }}" style="width: 100%; height:auto; position: relative; allowfullscreen;"></iframe>
+                    <div class="col-12">
+                        <iframe src="{{ asset($item[1]) }}" style="width: 100%; height:auto; position: relative; allowfullscreen;"></iframe>
+                    </div>
                 </div>
             </div>
         @endforeach
