@@ -12,6 +12,8 @@ class TestsIndex extends Component
     use WithFileUploads;
 
     public $files = [];
+
+    public $request = [];
     public $uploaded_files = [];
     public $message;
 
@@ -47,9 +49,14 @@ class TestsIndex extends Component
             $tmp_file0 = substr($value->temporaryUrl(), $start, $lenght);
             $tmp_file_in = storage_path('app/livewire-tmp/' . $tmp_file0);
             $new_name = 'storage/' . $tmp_file0;
+            //$value->store('files', 'local');
             rename($tmp_file_in, $new_name);
             $this->uploaded_files[] = [$filename, $new_name, $tmp_file_in ];
         }
+    }
+
+    public function updatedRequest() {
+        $this->files = $this->request['files'];
     }
     
 }
