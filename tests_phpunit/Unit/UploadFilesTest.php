@@ -53,7 +53,10 @@ class UploadFilesTest extends TestCase
         Livewire::test(TestsIndex::class)
             ->set('uploaded_files', $uploaded_files)
             ->call('destroy_files');
-        
+    
+        // Limpia los archivos de livewire-tmp
+        \Illuminate\Support\Facades\File::cleanDirectory(\storage_path('app/livewire-tmp'));
+    
     }
 
 }
