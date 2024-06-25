@@ -43,10 +43,10 @@ class UploadFilesTest extends TestCase
         $uploaded_files = [];
 
         foreach ($attaches as $attach) {
-            $path_tmp = '/public/';
+            $path_tmp = '/public/tests/';
             $start = strpos($attach->link, $path_tmp) + strlen($path_tmp);
             $tmp_file0 = substr($attach->link, $start);
-            $this->assertTrue(Storage::disk('public')->exists($tmp_file0));
+            $this->assertTrue(Storage::disk('public')->exists("tests/" . $tmp_file0));
             $uploaded_files[] = ["", $attach->link];
         }
 

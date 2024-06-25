@@ -53,7 +53,7 @@ class TestsIndex extends Component
             $tmp_file0 = substr($value->temporaryUrl(), $start, $lenght);
             $tmp_file_in = storage_path('app/livewire-tmp/' . $tmp_file0);
             if (env('APP_ENV') === 'testing') {
-                $new_name = 'storage/app/public/' . $tmp_file0;
+                $new_name = 'storage/app/public/tests/' . $tmp_file0;
             }else{
                 $new_name = 'storage/' . $tmp_file0;
             }
