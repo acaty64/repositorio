@@ -48,10 +48,13 @@ class TestsIndex extends Component
             $lenght = strpos($value->temporaryUrl(),'?') - $start;
             $tmp_file0 = substr($value->temporaryUrl(), $start, $lenght);
             $tmp_file_in = storage_path('app/livewire-tmp/' . $tmp_file0);
-            $new_name = 'storage/' . $tmp_file0;
-            //$value->store('files', 'local');
+            if (env('APP_ENV') === 'testing') {
+                $new_name = 'storage/app/public/' . $tmp_file0;
+            }else{
+                $new_name = 'storage/' . $tmp_file0;
+            }
             rename($tmp_file_in, $new_name);
-            $this->uploaded_files[] = [$filename, $new_name, $tmp_file_in ];
+            $this->uploaded_files[] = [$filename, $new_name ];
         }
     }
 
