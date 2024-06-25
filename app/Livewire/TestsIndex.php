@@ -2,6 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Attach;
+use App\Models\Document;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -10,15 +13,16 @@ use Spatie\PdfToImage\Pdf;
 class TestsIndex extends Component
 {
     use WithFileUploads;
+    use DatabaseTransactions;
 
     public $files = [];
 
     public $request = [];
     public $uploaded_files = [];
-    public $message;
-
+    public $document_id;
+    public $display;
     public $q_files = 0;
-
+    public $message;
     public function render()
     {
         return view('livewire.tests-index');
@@ -58,8 +62,52 @@ class TestsIndex extends Component
         }
     }
 
-    public function updatedRequest() {
-        $this->files = $this->request['files'];
+    public function destroy_files() {
+        foreach ($this->uploaded_files as $key => $file) {
+            $this->destroy_file($key);
+        }
     }
+    public function destroy_file($id) {
+        $file = $this->uploaded_files[$id];
+        $path_tmp = '/public/';
+        $start = strpos($file[1], $path_tmp) + strlen($path_tmp);
+        $tmp_file0 = substr($file[1], $start);
+
+        if(!Storage::disk('public')->exists($tmp_file0))
+        {
+            dd('Error no existe: ' . $tmp_file0);
+        };
+        Storage::disk('public')->delete($tmp_file0);
+
+    }
+
+    public function save_attach() {
+        foreach ($this->uploaded_files as $key => $file) {
+
+            $file = $this->uploaded_files[$key];
+            $path_tmp = '/public/';
+            $start = strpos($file[1], $path_tmp) + strlen($path_tmp);
+            $tmp_file0 = substr($file[1], $start);
+    
+            if(!Storage::disk('public')->exists($tmp_file0))
+            {
+                dd('Error no existe: ' . $tmp_file0);
+            };
+
+            $attach = [
+                'attachable_type' => Document::class ,
+                'attachable_id' => $this->document_id ,
+                'filename' => $file[0] ,
+                'link' => $file[1] ,
+                'display' => $this->display ,
+            ];
+
+            Attach::create( $attach );
+
+        } 
+    
+    }
+
+
     
 }

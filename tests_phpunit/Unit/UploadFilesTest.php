@@ -3,6 +3,8 @@
 namespace Tests_phpunit\Unit;
 
 use App\Livewire\TestsIndex;
+use App\Models\Attach;
+use App\Models\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
@@ -21,14 +23,37 @@ class UploadFilesTest extends TestCase
         $file1 = UploadedFile::fake()->create('prueba1.pdf', 256);
         $file2 = UploadedFile::fake()->create('prueba2.pdf', 256);
 
+        $attach = [
+            'attachable_id' => 999,
+            'display' => 'public'
+        ];
+
         Livewire::test(TestsIndex::class)
             ->set('files', [$file1, $file2])
             ->assertSet('uploaded_files.0.0', 'prueba1.pdf')
             ->assertSet('uploaded_files.1.0', 'prueba2.pdf')
+            ->set('document_id', $attach['attachable_id'])
+            ->set('display', $attach['display'])
+            ->call('save_attach')
             ;
         
-        $this->markTestSkipped('Falta eliminar los archivos pdf creados.');
-        //Storage::disk('public')->delete('storage/'.$ARCHIVO_A_ELIMINAR);
+        $this->assertDatabaseHas('attaches', $attach);
+
+        $attaches = Attach::all();
+        $uploaded_files = [];
+
+        foreach ($attaches as $attach) {
+            $path_tmp = '/public/';
+            $start = strpos($attach->link, $path_tmp) + strlen($path_tmp);
+            $tmp_file0 = substr($attach->link, $start);
+            $this->assertTrue(Storage::disk('public')->exists($tmp_file0));
+            $uploaded_files[] = ["", $attach->link];
+        }
+
+        Livewire::test(TestsIndex::class)
+            ->set('uploaded_files', $uploaded_files)
+            ->call('destroy_files');
         
     }
+
 }
