@@ -1,11 +1,12 @@
-******** AGREGAR ALIAS SAIL en ~/.bashrc
-
-https://laracasts.com/discuss/channels/general-discussion/permanent-bash-alias-for-laravel-sail
-
-alias sail='bash vendor/bin/sail'
-
-
 ****************** PENDIENTES
+Livewire Tables
+
+https://rappasoft.com/docs/laravel-livewire-tables/v3/introduction
+
+
+
+
+*******************************************************
 document-index
     * Agregar status create_2
     * edit -> solo el office-user create
@@ -18,3 +19,4 @@ Mostrar target index del Auth() en admin.index
 
 *************** PARCIAL
 Crear task index (reemplazar user_id x name)
+

@@ -12,3 +12,9 @@ DUSK
         > php artisan optimize:clear
         > dusk
 
+******** AGREGAR ALIAS SAIL en ~/.bashrc
+
+https://laracasts.com/discuss/channels/general-discussion/permanent-bash-alias-for-laravel-sail
+
+alias sail='bash vendor/bin/sail'
+
