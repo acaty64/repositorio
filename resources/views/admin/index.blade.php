@@ -9,8 +9,5 @@
 
 @section('content')
     <p>Bienvenido al panel de control, seleccione su opción en el menú desplegable de la izquierda.</p>
-    <div>
-        @livewire('users-table')
-    </div>
 @stop
 
