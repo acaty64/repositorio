@@ -1,0 +1,7 @@
+# Para ejecutar: ./pruebas
+./vendor/bin/sail artisan optimize
+./vendor/bin/sail artisan optimize:clear
+./vendor/bin/sail test
+./vendor/bin/sail dusk
+./vendor/bin/sail artisan optimize
+./vendor/bin/sail artisan optimize:clear

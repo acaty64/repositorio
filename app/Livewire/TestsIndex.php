@@ -34,16 +34,16 @@ class TestsIndex extends Component
         $filename = $this->uploaded_files[$key][0];
 
         $this->message = 'Eliminando archivo: ' . $filename;
-        
+        $this->destroy_file($key);
+
         unset($this->uploaded_files[$key]);
-
         $this->q_files--;
-
         $this->message = 'Archivo Eliminado: ' . $filename;
     
     }
     public function updatedFiles()
     {
+        $this->message = "";
         foreach ($this->files as $value) {
             $this->q_files++;
             $filename = $value->getClientOriginalName();
