@@ -9,7 +9,7 @@
 @section('content')
     <div class="row">
         <div class="col-9">
-            @livewire('tests-index')
+            @livewire('documents.document-index')
         </div>
     </div>
 @stop

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Tests;
 
 use App\Models\Attach;
 use App\Models\Document;
@@ -25,7 +25,7 @@ class TestsIndex extends Component
     public $message;
     public function render()
     {
-        return view('livewire.tests-index');
+        return view('livewire.tests.tests-index');
     }
 
     public function close($key)
@@ -104,7 +104,9 @@ class TestsIndex extends Component
 
             Attach::create( $attach );
 
-        } 
+        }
+        
+        $this->emit('uploaded_files');
     
     }
 
