@@ -2,7 +2,7 @@
 
 namespace Tests_phpunit\Unit;
 
-use App\Livewire\TestsIndex;
+use App\Livewire\Tests\TestsIndex;
 use App\Models\Attach;
 use App\Models\Document;
 use Illuminate\Http\UploadedFile;
@@ -35,6 +35,7 @@ class UploadFilesTest extends TestCase
             ->set('document_id', $attach['attachable_id'])
             ->set('display', $attach['display'])
             ->call('save_attach')
+            ->assertDispatched('uploaded_files')
             ;
         
         $this->assertDatabaseHas('attaches', $attach);
@@ -52,7 +53,8 @@ class UploadFilesTest extends TestCase
 
         Livewire::test(TestsIndex::class)
             ->set('uploaded_files', $uploaded_files)
-            ->call('destroy_files');
+            ->call('destroy_files')
+            ->assertDispatched('uploaded_files');
     
         // Limpia los archivos de livewire-tmp
         \Illuminate\Support\Facades\File::cleanDirectory(\storage_path('app/livewire-tmp'));

@@ -60,12 +60,16 @@ class TestsIndex extends Component
             rename($tmp_file_in, $new_name);
             $this->uploaded_files[] = [$filename, $new_name ];
         }
+
+        $this->dispatch('uploaded_files');
     }
 
     public function destroy_files() {
         foreach ($this->uploaded_files as $key => $file) {
             $this->destroy_file($key);
         }
+        
+        $this->dispatch('uploaded_files');
     }
     public function destroy_file($id) {
         $file = $this->uploaded_files[$id];
@@ -106,10 +110,8 @@ class TestsIndex extends Component
 
         }
         
-        $this->emit('uploaded_files');
+        $this->dispatch('uploaded_files');
     
     }
-
-
     
 }

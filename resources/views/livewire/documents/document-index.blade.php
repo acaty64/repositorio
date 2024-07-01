@@ -6,10 +6,15 @@
             </div>
         @endif
     </div>
-    @livewire('documents.components.attachs')
-    @if($uploaded_files)
-        @foreach ($uploaded_files as $item)
-            <li>$item[1]</li>   
-        @endforeach
+    @if( $status == 'index')
+        @livewire('documents.components.index')
+    @endif
+    @if( $status == 'create' || $status == 'edit')
+        @livewire('documents.components.edit')
+        @livewire('documents.components.attachs')
+        @livewire('documents.components.targets')
+    @endif
+    @if( $status == 'destroy')
+        @livewire('documents.components.destroy')
     @endif
 </div>

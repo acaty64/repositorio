@@ -15,7 +15,6 @@ class Attachs extends Component
     use DatabaseTransactions;
 
     public $files = [];
-
     public $request = [];
     public $uploaded_files = [];
     public $document_id;
@@ -59,7 +58,7 @@ class Attachs extends Component
             rename($tmp_file_in, $new_name);
             $this->uploaded_files[] = [$filename, $new_name ];
         }
-        $this->emit('uploaded_files');
+        $this->dispatch('uploaded_files');
     }
 
     public function destroy_files() {
