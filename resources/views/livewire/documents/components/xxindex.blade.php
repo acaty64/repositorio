@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col">
             <span class="float-left">
-                <h1>Lista de Documentos</h1>
+                <h1>Lista de Documentos Status: {{ $status }}</h1>
             </span>
             <span class="float-right">
                 @can('admin.document.create')

@@ -54,6 +54,7 @@
         @endforeach
     </div>
     @endif
+    @script
     <script>
         function drop_file_component() {
             return {
@@ -67,6 +68,8 @@
                     }
                 }
             };
-        }
+        };
     </script>
+    @endscript
+
 </div>

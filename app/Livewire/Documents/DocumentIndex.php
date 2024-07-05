@@ -2,15 +2,19 @@
 
 namespace App\Livewire\Documents;
 
-use App\Models\Attach;
 use App\Models\Document;
-use Carbon\Carbon;
+use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class DocumentIndex extends Component
 {
-    public $uploaded_files;
+    public $status;
+    public $document_id;
+
+    public function mount()
+    {
+        $this->status = $this->status ?? "index";
+    }
     public function render()
     {
         return view('livewire.documents.document-index', [
@@ -18,4 +22,25 @@ class DocumentIndex extends Component
         ]);
     }
 
+    #[On('status')]
+    public function status($status)
+    {
+        $this->status = $status;
+    }
+
+    #[On('id')]
+    public function document_id($id)
+    {
+        $this->document_id = $id;
+    }
+
+    public function setStatus($status, $document_id=null)
+    {
+        
+        $this->status = $status;
+        $this->document_id = $document_id;
+
+        $this->dispatch('status', $status);
+        $this->dispatch('document_id', $document_id);
+    }
 }

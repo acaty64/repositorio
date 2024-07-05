@@ -7,5 +7,5 @@
 @stop
 
 @section('content')
-    @livewire('document-index')
+    @livewire('documents.document-index')
 @stop
