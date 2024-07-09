@@ -8,8 +8,13 @@
 <!-- PLUGIN FILEPOND-->
 
 <!-- https://www.desarrollolibre.net/blog/laravel/drag-and-drop-con-laravel-basico-o-livewire -->
+{{-- Drag and drop dentro de --}}
 
 
-https://www.youtube.com/watch?v=mccyxYL8L2s
+{{-- https://www.youtube.com/watch?v=mccyxYL8L2s
 Laravel Livewire Desde Cero: Cómo Subir Múltiples Imágenes Y Archivos
-Code with Luis
+Code with Luis --}}
+
+
+https://www.youtube.com/watch?v=Y3P_Hph6HZo
+Drag and drop multiple file uploader | Laravel Livewire 3 from Scratch
