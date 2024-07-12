@@ -4,7 +4,6 @@ namespace App\Livewire\Documents\Components;
 
 use App\Models\Attach;
 use App\Models\Document;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -12,15 +11,12 @@ use Livewire\WithFileUploads;
 class Attachs extends Component
 {
     use WithFileUploads;
-    use DatabaseTransactions;
 
     public $files = [];
-    public $request = [];
     public $uploaded_files = [];
-    public $document_id;
-    public $display;
     public $q_files = 0;
     public $message;
+    public $document_id, $display;
     public function render()
     {
         return view('livewire.documents.components.attachs');
@@ -57,6 +53,19 @@ class Attachs extends Component
             }
             rename($tmp_file_in, $new_name);
             $this->uploaded_files[] = [$filename, $new_name ];
+        }
+        $this->dispatch('uploaded_files');
+    }
+
+    public function remove($index)
+    {
+        $this->destroy_file($index);
+
+        unset($this->uploaded_files[$index]);
+        
+        $this->q_files = count($this->uploaded_files);
+        if($this->q_files == 0) {
+            $this->uploaded_files = [];	
         }
         $this->dispatch('uploaded_files');
     }

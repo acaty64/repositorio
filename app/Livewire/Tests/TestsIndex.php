@@ -4,16 +4,13 @@ namespace App\Livewire\Tests;
 
 use App\Models\Attach;
 use App\Models\Document;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Spatie\PdfToImage\Pdf;
 
 class TestsIndex extends Component
 {
     use WithFileUploads;
-    use DatabaseTransactions;
 
     public $files = [];
 

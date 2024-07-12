@@ -10,7 +10,8 @@ class Tests2Index extends Component
     use WithFileUploads;
 
     public $message; 
-    public $files=[];
+    public $files = [];
+    public $attachs = [];
 
     public function render()
     {
@@ -22,7 +23,7 @@ class Tests2Index extends Component
         unset($this->files[$index]);
     }
     
-    public function uploadFiles($index)
+    public function uploadFiles()
     {
         $this->validate([
             'files.*' =>'file|required|max:1024|mimes:pdf',
@@ -37,5 +38,12 @@ class Tests2Index extends Component
         $this->reset('files');
         $this->js("alert('Archivos grabados exitosamente.')");
         return $this->redirect('/testing', navigate:true);
+    }
+
+    public function load($files){
+        foreach ($files as $file) {
+            $this->message = $file->getClientOriginalName();
+            $this->attachs[] = $file;
+        }
     }
 }
